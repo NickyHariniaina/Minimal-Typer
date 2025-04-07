@@ -16,7 +16,6 @@
 
 body {
   background-color: var(--tertiary-color);
-  background-repeat: no-repeat;
   height: 100vh;
   overflow: hidden;
 }
@@ -40,6 +39,15 @@ body {
   width: 100%;
 }
 
+.settings__quit {
+  /* Part under construction, should be improved later */
+  background-color: red;
+  cursor: pointer;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .navbar__container {
   width: 100%;
   display: flex;
@@ -67,7 +75,6 @@ body {
   opacity: 1;
   background-color: var(--primary-color);
   scale: 1;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.467);
 }
 
 .navbar__item:active {
@@ -75,7 +82,7 @@ body {
 }
 
 .appearance {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 90%;
   padding: 1%;
@@ -84,8 +91,9 @@ body {
   background-color: #6da7963b;
 }
 
+/* The design should be improved later */
 .mode {
-  display: none;
+  display: flex;
   flex-direction: column;
   width: 90%;
   padding: 1%;

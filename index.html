@@ -27,10 +27,13 @@
     <!-- Modals, only shown if some buttons are pushed. -->
     <div class="settings">
         <!-- Quit button to change later -->
+        <div class="settings__quit" aria-selected="false">
+            Button under construction.
+        </div>
         <nav class="settings__navbar">
             <ul class="navbar__container">
-                <li class="navbar__item navbar__item-mode">Mode</li>
-                <li class="navbar__item navbar__item-selected navbar__item-appaerance">Appearance</li>
+                <li class="navbar__item navbar__item-selected navbar__item-mode">Mode</li>
+                <li class="navbar__item navbar__item-appearance">Appearance</li>
                 <!-- We should add more settings here later -->
             </ul>
         </nav>
@@ -81,8 +84,8 @@
             </div>
         </section>
     </div>
+    <script src="./assets/js/jquery-3.7.1.min.js"></script>
     <script src="./assets/js/script.js"></script>
     <!-- Import of Jquery, should replace by CDN later. -->
-    <script src="./assets/js/jquery-3.7.1.min.js"></script>
 </body>
 </html>
