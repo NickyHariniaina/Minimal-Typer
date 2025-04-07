@@ -14,7 +14,6 @@
 }
 
 body {
-    font-size: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,15 +24,25 @@ body {
     overflow: hidden;
 }
 
+header {
+    display: flex;
+    align-items: center;
+}
+
 header h1{
-    margin: 20px -35px;
-    font-size: 3.6vw;
+    text-align: center;
+}
+
+label {
+    display: none;
 }
 
 #mode{
     font-size: inherit;
     background-color: transparent;
+    display: none;
 }
+
 main{
     display: inherit;
     flex-direction: inherit;
@@ -41,20 +50,20 @@ main{
 }
 
 #word-display{
-    font-size: 40px;
+    height: 25vh;
     margin-inline: 20vw;
-    padding: 35px;
-    border-radius: 25px;
+    padding: 5%;
+    border-radius: 10px;
     background-color: var(--container-color);
 }
 
 #input-field{
-    font-size: 35px;
     width: 8vw;
     background-color: var(--container-color);
     border: none;
-    border-radius: 15px;
-    padding: 5px 10px;
+    border-radius: 10px;
+    padding: 1% 2%;
+    text-align: center;
 }
 
 option{
