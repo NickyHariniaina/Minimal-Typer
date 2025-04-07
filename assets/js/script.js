@@ -9,7 +9,7 @@ let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 const wordsToType = [];
 
-const modeSelect = document.getElementById("mode");
+const modeSelect = document.getElementById("level");
 const wordDisplay = document.getElementById("word-display");
 const inputField = document.getElementById("input-field");
 const results = document.getElementById("results");

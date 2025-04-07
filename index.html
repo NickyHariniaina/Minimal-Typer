@@ -15,12 +15,7 @@
 
     <header>
         <h1>Typing Test</h1>
-        <label for="mode">Select Mode:</label>
-        <select id="mode">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-        </select>
+        
     </header>
 
     <main>
@@ -29,7 +24,65 @@
         <p id="results">Results : </p>
     </main>
 
+    <!-- Modals, only shown if some buttons are pushed. -->
+    <div class="settings">
+        <!-- Quit button to change later -->
+        <nav class="settings__navbar">
+            <ul class="navbar__container">
+                <li class="navbar__item navbar__item-mode">Mode</li>
+                <li class="navbar__item navbar__item-selected navbar__item-appaerance">Appearance</li>
+                <!-- We should add more settings here later -->
+            </ul>
+        </nav>
+        <section class="settings__content">
+            <div class="mode">
+                <div class="mode__level">
+                    <h2>Choose your level</h2>
+                    <div class="level__container">
+                        <button class="level__easy">Easy</button>
+                        <button class="level__medium">Medium</button>
+                        <button class="level__hard">Hard</button>
+                    </div>
+                </div>
+                <div class="mode__behavior">
+                    <h2>Choose your game mode</h2>
+                    <div class="behavior__container">
+                        <div class="behavior__time">
+                            <button class="time__fifteen">15 seconds</button>
+                            <button class="time__thirty">30 seconds</button>
+                            <button class="time__one-minute">60 seconds</button>
+                            <button class="time__two-minutes">120 seconds</button>
+                        </div>
+                        <div class="behavior__words">
+                            <button class="words__ten">10 words</button>
+                            <button class="words__twenty-five">25 words</button>
+                            <button class="words__fifty">50 words</button>
+                            <button class="words__hundred">100 words</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="appearance">
+                <h2>Choose a theme:</h2>
+                <div class="appearance__theme">
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                    <button class="theme__option theme__option-ocean">Ocean</button>
+                </div>
+            </div>
+        </section>
+    </div>
     <script src="./assets/js/script.js"></script>
-    
+    <!-- Import of Jquery, should replace by CDN later. -->
+    <script src="./assets/js/jquery-3.7.1.min.js"></script>
 </body>
 </html>
