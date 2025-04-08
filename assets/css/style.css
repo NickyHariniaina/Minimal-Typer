@@ -82,11 +82,11 @@ nav{
     flex-direction: row;
     gap: 50vw;
 }
-#wpm, #acc{
+#wpm, #accuracy{
     text-align: center;
     background-color: var(--container-color);
-    width: 250px;
     border-radius: 10px;
+    height: 100px;
     width: 150px;
     line-height: 50px;
 }
