@@ -7,7 +7,7 @@
  */
 let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
-const wordsToType = [];
+let wordsToType = [];
 const modeSelect = document.getElementById("mode");
 const wordDisplay = document.getElementById("word-display");
 const input = document.getElementById("input-field") 
@@ -15,7 +15,6 @@ const input = document.getElementById("input-field")
 const wordPerMinutes = document.getElementById("wpm");
 const acc = document.getElementById("accuracy");
 const wordCount = 50;
-
 
 let timer;
 let charIndex = 0;
@@ -29,17 +28,22 @@ const words = {
     'medium': ["keyboard", "monitor", "printer", "charger", "battery"],
     'hard': ["synchronize", "complicated", "development", "extravagant", "misconception"]
 };
-
+modeSelect.addEventListener("change", ()=>{
+    mode = modeSelect.value
+    wordsToType = []
+})
 
 // Generate a random word from the selected mode
 const getRandomWord = (mode) => {
+    console.log(mode);
+    
     const wordList = words[mode];
     return wordList[Math.floor(Math.random() * wordList.length)];
 };
 
-
 for (let i = 0; i < wordCount; i++) {
     wordsToType.push(getRandomWord(modeSelect.value));
+    console.log();
     
 }
 
