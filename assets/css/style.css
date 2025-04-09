@@ -105,6 +105,7 @@ body {
 .appearance__theme {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 2%;
   height: 65vh;
 }
@@ -185,4 +186,61 @@ body {
   border-radius: 10px;
   width: 20%;
   margin-block: 4%;
+}
+
+/* Style for the theme changer button. */
+
+.theme__option-licorice {
+  background-color: #211103 !important;
+}
+
+.theme__option-linen {
+  background-color: #773344 !important;
+}
+
+.theme__option-ocean {
+  background-color: #172a3a !important;
+}
+
+.theme__option-crayola {
+  background-color: #e85d75 !important;
+}
+
+.theme__option-honeydew {
+  background-color: #e2fcef !important;
+  color: black;
+}
+
+.theme__option-gunmetal {
+  background-color: #292f36 !important;
+}
+
+.theme__option-sunglow {
+  background-color: #ffd25a !important;
+}
+
+.theme__option-duke-blue {
+  background-color: #390099 !important;
+}
+
+.theme__option-raisin-black {
+  background-color: #3a2e39 !important;
+}
+
+.theme__option-mint {
+  background-color: #001d28 !important;
+}
+
+.theme__current-option {
+  border: 6px solid white !important;
+}
+
+.theme__option-fawn {
+  background-color: #fbba72 !important;
+  color: black;
+}
+
+.theme__option-lavender {
+  background-color: #eeeeff !important;
+  color: black;
 }
