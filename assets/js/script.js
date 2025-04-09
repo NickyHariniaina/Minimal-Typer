@@ -107,13 +107,48 @@
 
 // -------------------------------------------------------------------
 
-// Open / Close settings. ( Jquery )
+
+// theme checker.
+const theme = {
+    isLicorice: false,
+    isLinen: false,
+    isOcean: false,
+    isCrayola: false,
+    isHoneyDew: false,
+    isGunmetal: false,
+    isSunglow: false,
+    isDukeBlue: false,
+    isRaisinBlack: false,
+    isMint: true,
+    isFawn: false,
+    isLavender: false,
+}
+
 
 $(document).ready(() => {
+    //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
     const modeSettings = $(".mode");
     const appearanceSettings = $(".appearance");
+    const licorice = $(".theme__option-licorice");
+    const linen = $(".theme__option-linen");
+    const ocean = $(".theme__option-ocean");
+    const crayola = $(".theme__option-crayola");
+    const honeydew = $(".theme__option-honeydew");
+    const gunmetal = $(".theme__option-gunmetal");
+    const sunglow = $(".theme__option-sunglow");
+    const dukeBlue = $(".theme__option-duke-blue");
+    const raisinBlack= $(".theme__option-raisin-black");
+    const mint = $(".theme__option-mint");
+    const fawn = $(".theme__option-fawn");
+    const lavender = $(".theme__option-lavender");
+    
+    // Open / Close settings. ( Jquery )
+
+
+    // Open settings 
+
 
     // Close settings
     $(".settings__quit").click(() => {
@@ -121,10 +156,6 @@ $(document).ready(() => {
     })
 
     // Browse between settings page:
-    
-    // WARNING: Initialy, the selected button is automatically the 
-    // .navbar__item-mode, so if you click on this after you 
-    // refresh your current tab, it won't work.
 
     // Go to the mode settings.
     $(".navbar__item-mode").click(() => {
@@ -135,11 +166,18 @@ $(document).ready(() => {
     })
 
     // Go to the appearance settings.
-
     $(".navbar__item-appearance").click(() => {
         appearanceSettingsButton.addClass("navbar__item-selected");
         modeSettingsButton.removeClass("navbar__item-selected");
         modeSettings.hide(500);
         appearanceSettings.show(500);
+    })
+
+    // Change the theme.
+    licorice.click(() => {
+        theme.isLicorice = true;
+        document.documentElement.style.setProperty('--primary-color', '#211103');
+        document.documentElement.style.setProperty('--secondary-color', '#3d1308');
+        document.documentElement.style.setProperty('--tertiary-color', '#7b0d1e');
     })
 })

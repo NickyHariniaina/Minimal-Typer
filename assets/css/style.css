@@ -6,10 +6,12 @@
   --tertiary-color: #001d28;
 }
 
+
 * {
   font-family: var(--font);
   color: var(--text-color);
   box-sizing: border-box;
+  transition: all 0.3s;
   margin: 0;
   padding: 0;
 }
