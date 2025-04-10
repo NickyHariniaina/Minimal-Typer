@@ -180,4 +180,64 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--secondary-color', '#3d1308');
         document.documentElement.style.setProperty('--tertiary-color', '#7b0d1e');
     })
+    linen.click(() => {
+        theme.isLinen = true;
+        document.documentElement.style.setProperty('--primary-color', '#f5e9e2');
+        document.documentElement.style.setProperty('--secondary-color', '#e3b5a4');
+        document.documentElement.style.setProperty('--tertiary-color', '#773344');
+        document.documentElement.style.setProperty('--text-color', 'white');
+    })
+    ocean.click(() => {
+        theme.isOcean = true;
+        document.documentElement.style.setProperty('--primary-color', '#75dddd');
+        document.documentElement.style.setProperty('--secondary-color', '#508991');
+        document.documentElement.style.setProperty('--tertiary-color', '#172a3a');
+    })
+    crayola.click(() => {
+        theme.isCrayola = true;
+        document.documentElement.style.setProperty('--primary-color', '#9f8082');
+        document.documentElement.style.setProperty('--secondary-color', '#c76d7e');
+        document.documentElement.style.setProperty('--tertiary-color', '#e85d75');
+    })
+    honeydew.click(() => {
+        theme.isHoneyDew = true;
+        document.documentElement.style.setProperty('--primary-color', '#e2fcef');
+        document.documentElement.style.setProperty('--secondary-color', '#9b287b');
+        document.documentElement.style.setProperty('--tertiary-color', '#5c164e');
+    })
+    gunmetal.click(() => {
+        theme.isGunmetal = true;
+        document.documentElement.style.setProperty('--primary-color', '#f7fff7');
+        document.documentElement.style.setProperty('--secondary-color', '#4ecdc4');
+        document.documentElement.style.setProperty('--tertiary-color', '#292f36');
+    })
+    sunglow.click(() => {
+        theme.isSunglow = true;
+        document.documentElement.style.setProperty('--primary-color', '#fff05a');
+        document.documentElement.style.setProperty('--secondary-color', '#ffd25a');
+        document.documentElement.style.setProperty('--tertiary-color', '#ffaa5a');
+    })
+    dukeBlue.click(() => {
+        theme.isDukeBlue = true;
+        document.documentElement.style.setProperty('--primary-color', '#ff0054');
+        document.documentElement.style.setProperty('--secondary-color', '#9e0059');
+        document.documentElement.style.setProperty('--tertiary-color', '#390099');
+    })
+    raisinBlack.click(() => {
+        theme.isRaisinBlack = true;
+        document.documentElement.style.setProperty('--primary-color', '#f4d8cd');
+        document.documentElement.style.setProperty('--secondary-color', '#1e555c');
+        document.documentElement.style.setProperty('--tertiary-color', '#3a2e39');
+    })
+    lavender.click(() => {
+        theme.isLavender = true;
+        document.documentElement.style.setProperty('--primary-color', '#eeeeff');
+        document.documentElement.style.setProperty('--secondary-color', '#a24936');
+        document.documentElement.style.setProperty('--tertiary-color', '#000000');
+    })
+    mint.click(() => {
+        document.documentElement.style.setProperty('--primary-color', '#6da796');
+        document.documentElement.style.setProperty('--secondary-color', '#5c985d');
+        document.documentElement.style.setProperty('--tertiary-color', '#001d28');
+    })
 })

@@ -6,12 +6,10 @@
   --tertiary-color: #001d28;
 }
 
-
 * {
   font-family: var(--font);
   color: var(--text-color);
   box-sizing: border-box;
-  transition: all 0.3s;
   margin: 0;
   padding: 0;
 }
@@ -20,6 +18,7 @@ body {
   background-color: var(--tertiary-color);
   height: 100vh;
   overflow: hidden;
+  transition: all 0.3s;
 }
 
 .settings {
@@ -233,10 +232,6 @@ body {
   background-color: #001d28 !important;
 }
 
-.theme__current-option {
-  border: 6px solid white !important;
-}
-
 .theme__option-fawn {
   background-color: #fbba72 !important;
   color: black;
@@ -245,4 +240,9 @@ body {
 .theme__option-lavender {
   background-color: #eeeeff !important;
   color: black;
+}
+
+
+.appearance__theme button:active {
+  scale: 0.8;
 }
