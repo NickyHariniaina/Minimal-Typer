@@ -134,11 +134,18 @@ body {
 
 .level__container button {
   width: 20%;
+  font-size: 1.2em;
   padding-block: 1%;
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 20px;
   transition: all 0.3s;
+}
+
+.level__container button:active,
+.behavior__time button:active,
+.behavior__words button:active {
+  scale: 0.8;
 }
 
 .level__easy {
@@ -183,10 +190,12 @@ body {
   background-color: var(--secondary-color);
   outline: none;
   border: none;
-  padding-block: 1%;
-  border-radius: 10px;
+  padding-block: 2%;
+  font-size: 1.5em;
+  border-radius: 20px;
   width: 20%;
   margin-block: 4%;
+  transition: all 0.3s;
 }
 
 /* Style for the theme changer button. */
@@ -242,7 +251,10 @@ body {
   color: black;
 }
 
-
 .appearance__theme button:active {
   scale: 0.8;
+}
+
+.current-game-mode {
+  box-shadow: 0 0 10px white !important;
 }

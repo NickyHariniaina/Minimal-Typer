@@ -107,8 +107,6 @@
 
 // -------------------------------------------------------------------
 
-
-// theme checker.
 const theme = {
     isLicorice: false,
     isLinen: false,
@@ -124,8 +122,8 @@ const theme = {
     isLavender: false,
 }
 
-
 $(document).ready(() => {
+
     //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
@@ -139,14 +137,27 @@ $(document).ready(() => {
     const gunmetal = $(".theme__option-gunmetal");
     const sunglow = $(".theme__option-sunglow");
     const dukeBlue = $(".theme__option-duke-blue");
-    const raisinBlack= $(".theme__option-raisin-black");
+    const raisinBlack = $(".theme__option-raisin-black");
     const mint = $(".theme__option-mint");
-    const fawn = $(".theme__option-fawn");
     const lavender = $(".theme__option-lavender");
-    
-    // Open / Close settings. ( Jquery )
+    const timeFifteen = $(".time__fifteen");
+    const timeThirty = $(".time__thirty");
+    const timeOneMinute = $(".time__one-minute");
+    const timeTwoMinutes = $(".time__two-minutes");
+    const wordTen = $(".words__ten");
+    const wordTwentyFive = $(".words__twenty-five");
+    const wordFifty = $(".words__fifty");
+    const wordHundred = $(".words__hundred");
+    const easy = $(".level__easy");
+    const medium = $(".level__medium");
+    const hard = $(".level__hard");
 
+    // current state.
+    let currentTheme = mint;
+    let currentGameMode = timeFifteen;
+    let currentLevel = easy;
 
+    // Open / Close settings.
     // Open settings 
 
 
@@ -156,7 +167,6 @@ $(document).ready(() => {
     })
 
     // Browse between settings page:
-
     // Go to the mode settings.
     $(".navbar__item-mode").click(() => {
         modeSettingsButton.addClass("navbar__item-selected");
@@ -239,5 +249,64 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--primary-color', '#6da796');
         document.documentElement.style.setProperty('--secondary-color', '#5c985d');
         document.documentElement.style.setProperty('--tertiary-color', '#001d28');
+    })
+
+    // Mode changer.
+    timeFifteen.click(() => {
+        timeFifteen.addClass("current-game-mode");
+        currentGameMode !== timeFifteen ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = timeFifteen;
+    });
+    timeThirty.click(() => {
+        timeThirty.addClass("current-game-mode")
+        currentGameMode !== timeThirty ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = timeThirty;
+    });
+    timeOneMinute.click(() => {
+        timeOneMinute.addClass("current-game-mode");
+        currentGameMode !== timeOneMinute ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = timeOneMinute;
+    });
+    timeTwoMinutes.click(() => {
+        timeTwoMinutes.addClass("current-game-mode");
+        currentGameMode !== timeTwoMinutes ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = timeTwoMinutes;
+    });
+    wordTen.click(() => {
+        wordTen.addClass("current-game-mode");
+        currentGameMode !== wordTen ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = wordTen;
+    });
+    wordTwentyFive.click(() => {
+        wordTwentyFive.addClass("current-game-mode");
+        currentGameMode !== wordTwentyFive ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = wordTwentyFive;
+    });
+    wordFifty.click(() => {
+        wordFifty.addClass("current-game-mode");
+        currentGameMode !== wordFifty ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = wordFifty;
+    });
+    wordHundred.click(() => {
+        wordHundred.addClass("current-game-mode");
+        currentGameMode !== wordHundred ? currentGameMode.removeClass("current-game-mode") : null;
+        currentGameMode = wordHundred;
+    });
+
+    // level changer.
+    easy.click(() => {
+        easy.addClass("current-game-mode");
+        currentLevel !== easy ? currentLevel.removeClass("current-game-mode") : null;
+        currentLevel = easy;
+    });
+    medium.click(() => {
+        medium.addClass("current-game-mode");
+        currentLevel !== medium ? currentLevel.removeClass("current-game-mode") : null;
+        currentLevel = medium;
+    })
+    hard.click(() => {
+        hard.addClass("current-game-mode");
+        currentLevel !== hard ? currentLevel.removeClass("current-game-mode") : null;
+        currentLevel = hard;
     })
 })
