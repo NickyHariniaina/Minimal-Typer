@@ -4,6 +4,8 @@
   --primary-color: #6da796;
   --secondary-color: #5c985d;
   --tertiary-color: #001d28;
+  --low-transition: all 0.3s;
+  --font-button-color: white;
 }
 
 * {
@@ -18,7 +20,7 @@ body {
   background-color: var(--tertiary-color);
   height: 100vh;
   overflow: hidden;
-  transition: all 0.3s;
+  transition: var(--low-transition);
 }
 
 .settings {
@@ -64,7 +66,7 @@ body {
   width: 40%;
   padding-block: 1%;
   border-radius: 20px;
-  transition: all 0.3s;
+  transition: var(--low-transition);
 }
 
 .navbar__item-selected {
@@ -118,7 +120,7 @@ body {
   border: none;
   margin-block: 4%;
   border-radius: 20px;
-  transition: all 0.3s;
+  transition: var(--low-transition);
 }
 
 .mode h2,
@@ -139,7 +141,7 @@ body {
   outline: none;
   border: none;
   border-radius: 20px;
-  transition: all 0.3s;
+  transition: var(--low-transition);
 }
 
 .level__container button:active,
@@ -195,55 +197,59 @@ body {
   border-radius: 20px;
   width: 20%;
   margin-block: 4%;
-  transition: all 0.3s;
+  transition: var(--low-transition);
 }
 
 /* Style for the theme changer button. */
 
 .theme__option-licorice {
   background-color: #211103 !important;
+  color: white !important;
 }
 
 .theme__option-linen {
   background-color: #773344 !important;
+  color: white !important;
 }
 
 .theme__option-ocean {
   background-color: #172a3a !important;
+  color: white !important;
 }
 
 .theme__option-crayola {
   background-color: #e85d75 !important;
+  color: black !important;
 }
 
 .theme__option-honeydew {
   background-color: #e2fcef !important;
-  color: black;
+  color: black !important;
 }
 
 .theme__option-gunmetal {
   background-color: #292f36 !important;
+  color: white !important;
 }
 
 .theme__option-sunglow {
   background-color: #ffd25a !important;
+  color: black !important;
 }
 
 .theme__option-duke-blue {
+  color: white !important;
   background-color: #390099 !important;
 }
 
 .theme__option-raisin-black {
   background-color: #3a2e39 !important;
+  color: white !important;
 }
 
 .theme__option-mint {
   background-color: #001d28 !important;
-}
-
-.theme__option-fawn {
-  background-color: #fbba72 !important;
-  color: black;
+  color: white !important;
 }
 
 .theme__option-lavender {
@@ -257,4 +263,8 @@ body {
 
 .current-game-mode {
   box-shadow: 0 0 10px white !important;
+}
+
+.navbar__item {
+  color: var(--font-button-color) !important;
 }
