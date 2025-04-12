@@ -106,7 +106,6 @@
 // startTest();
 
 // -------------------------------------------------------------------
-
 const theme = {
     isLicorice: false,
     isLinen: false,
@@ -158,8 +157,8 @@ $(document).ready(() => {
     let currentLevel = easy;
 
     // Open / Close settings.
+    $(".settings").hide();
     // Open settings 
-
 
     // Close settings
     $(".settings__quit").click(() => {
@@ -329,5 +328,23 @@ $(document).ready(() => {
         hard.addClass("current-game-mode");
         currentLevel !== hard ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = hard;
+    })
+
+    // Score and stat.
+
+    const ctx = $("#wpm-stat");
+    const wpm = [20, 30, 40, 40, 12, 20, 30, 40, 40, 12, 23];
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [0,1,2,3,4,5,6,7,8,9,10,11,12],
+            datasets: [
+                {
+                    label: "Wpm",
+                    data: [...wpm],
+                    borderColor: "var(--primary-font-color)",
+                }
+            ]
+        }
     })
 })

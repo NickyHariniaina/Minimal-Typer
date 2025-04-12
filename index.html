@@ -25,6 +25,12 @@
     </main>
 
     <!-- Modals, only shown if some buttons are pushed. -->
+    <div class="score">
+        <div class="score__quit" aria-selected="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+        </div>
+        <canvas id="wpm-stat"></canvas>
+    </div>
     <div class="settings">
         <!-- Quit button to change later -->
         <div class="settings__quit" aria-selected="false">
@@ -84,7 +90,8 @@
         </section>
     </div>
     <script src="./assets/js/jquery-3.7.1.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js" type="module"></script>
+    <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <!-- Import of Jquery, should replace by CDN later. -->
 </body>

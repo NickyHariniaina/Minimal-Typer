@@ -348,3 +348,25 @@ body::before {
 .current-game-mode {
   opacity: 0.5;
 }
+
+.score {
+  width: var(--full-width);
+  height: var(--full-height);
+  padding-block: var(--low);
+  gap: var(--high-padding);
+
+  background: rgba(255, 255, 255, 0.27);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(25px);
+
+  position: absolute;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+#wpm-start {
+  width: 50% !important;
+}
