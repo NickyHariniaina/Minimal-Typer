@@ -43,24 +43,24 @@ body::before {
 
   background: linear-gradient(
     223deg,
-    var(--primary-color) 0%,
+    var(--secondary-color) 0%,
     var(--secondary-color) 50%,
     var(--tertiary-color) 100%,
 
-    var(--primary-color) 150%,
+    var(--secondary-color) 150%,
     var(--secondary-color) 180%,
     var(--tertiary-color) 200%,
 
-    var(--primary-color) 250%,
+    var(--secondary-color) 250%,
     var(--secondary-color) 280%,
     var(--tertiary-color) 300%,
 
-    var(--primary-color) 350%,
+    var(--secondary-color) 350%,
     var(--secondary-color) 380%,
     var(--tertiary-color) 400%
   );
   background-size: 400% 400%;
-  animation: gradient-shift 6s ease infinite;
+  animation: gradient-shift 10s ease infinite;
 }
 
 @keyframes gradient-shift {
