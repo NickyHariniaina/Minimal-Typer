@@ -60,7 +60,7 @@ body::before {
     var(--tertiary-color) 400%
   );
   background-size: 400% 400%;
-  animation: gradient-shift 10s ease infinite;
+  animation: gradient-shift 5s ease infinite;
 }
 
 @keyframes gradient-shift {
@@ -353,7 +353,7 @@ body::before {
   width: var(--full-width);
   height: var(--full-height);
   padding-block: var(--low);
-  gap: var(--high-padding);
+  gap: 10%;
 
   background: var(--tertiary-color);
 
@@ -362,9 +362,27 @@ body::before {
 
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  align-items: center;
 }
 
-#wpm-start {
-  width: 50% !important;
+#wpm-stat {
+  width: 50%;
+}
+
+.score__stat {
+  width: var(--full-width);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.score__stat h3 {
+  font-size: 2em;
+}
+
+.score__stat div {
+  display: inherit;
+  flex-direction: column;
+  align-items: center;
 }

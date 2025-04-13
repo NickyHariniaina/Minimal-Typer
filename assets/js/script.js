@@ -333,8 +333,8 @@ $(document).ready(() => {
     // Score and stat.
 
     const ctx = $("#wpm-stat");
-    const wpm = [20, 30, 40, 40, 12, 20, 30, 40, 40, 12, 23];
-    const accuracy = [];
+    const wpm = [20, 30, 30, 35, 12, 20, 30, 40, 40, 12, 23];
+    const accuracy = [10, 10, 30, 30];
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -343,14 +343,21 @@ $(document).ready(() => {
                 {
                     label: "Wpm",
                     data: [...wpm],
-                    borderColor: "var(--primary-font-color)",
-                },
-                {
-                    label: "Accuracy",
-                    data: [...accuracy],
-                    borderColor: "var(--tertiary-font-color)",
+                    borderColor: "white",
+                    tension: 0.3,
+                    fill: true,
                 }
             ]
-        }
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false, // Allow custom width and height
+        },
+    })
+    
+    $(".score").hide();
+
+    $(".score__quit").click(() => {
+        $(".score").hide("fast");
     })
 })
