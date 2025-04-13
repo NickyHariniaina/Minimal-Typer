@@ -355,9 +355,7 @@ body::before {
   padding-block: var(--low);
   gap: var(--high-padding);
 
-  background: rgba(255, 255, 255, 0.27);
-  backdrop-filter: blur(3.5px);
-  -webkit-backdrop-filter: blur(25px);
+  background: var(--tertiary-color);
 
   position: absolute;
   top: 0;

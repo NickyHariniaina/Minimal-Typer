@@ -334,6 +334,7 @@ $(document).ready(() => {
 
     const ctx = $("#wpm-stat");
     const wpm = [20, 30, 40, 40, 12, 20, 30, 40, 40, 12, 23];
+    const accuracy = [];
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -343,6 +344,11 @@ $(document).ready(() => {
                     label: "Wpm",
                     data: [...wpm],
                     borderColor: "var(--primary-font-color)",
+                },
+                {
+                    label: "Accuracy",
+                    data: [...accuracy],
+                    borderColor: "var(--tertiary-font-color)",
                 }
             ]
         }
