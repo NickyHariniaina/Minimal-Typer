@@ -58,54 +58,55 @@ startTime = Date.now(); //initialistion of startTime
 const char = wordDisplay.querySelectorAll('span'); //the number of char in the display
 if (charIndex < char.length) {
     document.addEventListener('keydown', (event) => {
-        
+
         // Delete on backspace
         if (event.key === 'Backspace' && charIndex > 0) {
             char[charIndex].classList.remove('active', 'correct', 'incorrect', 'cursor');
             charIndex--;
             char[charIndex].classList.remove('correct', 'incorrect');
             char[charIndex].classList.add('active', 'cursor');
-        } else {
+        } else if (/[a-zA-Z]/.test(event.key) || event.key === " ") {
             if (char[charIndex].innerText === event.key) {
-                char[charIndex].classList.add('correct','cursor');
+                char[charIndex].classList.add('correct', 'cursor');
                 charIndex++;
             } else {
                 char[charIndex].classList.add('incorrect');
                 mistakesCount++;
                 charIndex++;
-            } 
-        }
-        // Move to the next character
-        if (charIndex < char.length) {
-            char[charIndex].classList.add('active', 'cursor');
-        }
-        
-        //delete previous cursor
-        for (let i = 0; i < charIndex; i++) {
-            char[i].classList.remove('cursor');
+            }
+            // Move to the next character
+            if (charIndex < char.length) {
+                char[charIndex].classList.add('active', 'cursor');
+            }
 
-            // Calculate and return WPM & accuracy
-            const getCurrentStats = () => {
-                const elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
-                const wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
-                const wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
-                const accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
-                return { wpmValue, accuracy: accuracy.toFixed(2) };
-            };
+            //delete previous cursor
+            for (let i = 0; i < charIndex; i++) {
+                char[i].classList.remove('cursor');
 
-            // Calculate and update WPM & accuracy
-            const { wpmValue, accuracy } = getCurrentStats();
-            wordPerMinutes.textContent = `${wpmValue} WPM`;
-            acc.textContent = `${accuracy}% Accuracy`;
+                // Calculate and return WPM & accuracy
+                const getCurrentStats = () => {
+                    const elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
+                    const wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
+                    const wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
+                    const accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+                    return { wpmValue, accuracy: accuracy.toFixed(2) };
+                };
+
+                // Calculate and update WPM & accuracy
+                const { wpmValue, accuracy } = getCurrentStats();
+                wordPerMinutes.textContent = `${wpmValue} WPM`;
+                acc.textContent = `${accuracy}% Accuracy`;
+            }
         }
-        
-        
+
+
+
         //remove cursor before the active char if the active char is typed 
-       
+
 
         // add cursor before the active char
         console.log(charIndex);
-        
+
     });
 } else { // test ended, should display the score modals ,modalsIsShown should be set to true.
     clearInterval(timer);
