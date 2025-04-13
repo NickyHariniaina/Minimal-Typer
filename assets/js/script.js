@@ -1,24 +1,38 @@
-// /**
-//  * Point culture (en Français car je suis un peu obligé): 
-//  * Dans ce genre de jeu, un mot equivaut a 5 caractères, y compris les espaces. 
-//  * La precision, c'est le pourcentage de caractères tapées correctement sur toutes les caractères tapées.
-//  * 
-//  * Sur ce... Amusez-vous bien ! 
-//  */
-// let startTime = null, previousEndTime = null;
-// let currentWordIndex = 0;
-// const wordsToType = [];
+/**
+ * Point culture (en Français car je suis un peu obligé): 
+ * Dans ce genre de jeu, un mot equivaut a 5 caractères, y compris les espaces. 
+ * La precision, c'est le pourcentage de caractères tapées correctement sur toutes les caractères tapées.
+ * 
+ * Sur ce... Amusez-vous bien ! 
+ */
 
-// const modeSelect = document.getElementById("level");
-// const wordDisplay = document.getElementById("word-display");
-// const inputField = document.getElementById("input-field");
-// const results = document.getElementById("results");
+let startTime = null, previousEndTime = null;
+let currentWordIndex = 0;
+let wordsToType = [];
+const modeSelect = document.getElementById("mode");
+const wordDisplay = document.getElementById("word-display");
+const input = document.getElementById("input-field");
 
-// const words = {
-//     easy: ["apple", "banana", "grape", "orange", "cherry"],
-//     medium: ["keyboard", "monitor", "printer", "charger", "battery"],
-//     hard: ["synchronize", "complicated", "development", "extravagant", "misconception"]
-// };
+const wordPerMinutes = document.getElementById("wpm");
+const acc = document.getElementById("accuracy");
+const wordCount = 50;
+
+let timer;
+let charIndex = 0;
+let isTyping = false;
+let mistakesCount = 0;
+let keydownCount = 0;
+
+// Change later
+const words = {
+    'easy': ["apple", "banana", "grape", "orange", "cherry"],
+    'medium': ["keyboard", "monitor", "printer", "charger", "battery"],
+    'hard': ["synchronize", "complicated", "development", "extravagant", "misconception"]
+};
+modeSelect.addEventListener("change", () => {
+    mode = modeSelect.value;
+    wordsToType = [];
+});
 
 // // Generate a random word from the selected mode
 // const getRandomWord = (mode) => {
@@ -26,86 +40,71 @@
 //     return wordList[Math.floor(Math.random() * wordList.length)];
 // };
 
-// // Initialize the typing test
-// const startTest = (wordCount = 50) => {
-//     wordsToType.length = 0; // Clear previous words
-//     wordDisplay.innerHTML = ""; // Clear display
-//     currentWordIndex = 0;
-//     startTime = null;
-//     previousEndTime = null;
 
-//     for (let i = 0; i < wordCount; i++) {
-//         wordsToType.push(getRandomWord(modeSelect.value));
-//     }
+for (let i = 0; i < wordCount; i++) {
+    wordsToType.push(getRandomWord(modeSelect.value));
+}
 
-//     wordsToType.forEach((word, index) => {
-//         const span = document.createElement("span");
-//         span.textContent = word + " ";
-//         if (index === 0) span.style.color = "red"; // Highlight first word
-//         wordDisplay.appendChild(span);
-//     });
+// Display text on the screen.
+for (const char in wordsToType.join(" ")) {
+    const joinedWord = wordsToType.join(" ");
+    wordDisplay.innerHTML += `<span>${joinedWord[char]}</span>`;
+}
 
-//     inputField.value = "";
-//     results.textContent = "";
-// };
 
-// // Start the timer when user begins typing
-// const startTimer = () => {
-//     if (!startTime) startTime = Date.now();
-// };
+wordDisplay.querySelectorAll('span')[0].classList.add('active');
 
-// // Calculate and return WPM & accuracy
-// const getCurrentStats = () => {
-//     const elapsedTime = (Date.now() - previousEndTime) / 1000; // Seconds
-//     const wpm = (wordsToType[currentWordIndex].length / 5) / (elapsedTime / 60); // 5 chars = 1 word
-//     const accuracy = (wordsToType[currentWordIndex].length / inputField.value.length) * 100;
+startTime = Date.now(); //initialistion of startTime
 
-//     return { wpm: wpm.toFixed(2), accuracy: accuracy.toFixed(2) };
-// };
+const char = wordDisplay.querySelectorAll('span'); //the number of char in the display
+if (charIndex < char.length) {
+    document.addEventListener('keydown', (event) => {
 
-// // Move to the next word and update stats only on spacebar press
-// const updateWord = (event) => {
-//     if (event.key === " ") { // Check if spacebar is pressed
-//         if (inputField.value.trim() === wordsToType[currentWordIndex]) {
-//             if (!previousEndTime) previousEndTime = startTime;
+        // Delete on backspace
+        if (event.key === 'Backspace' && charIndex > 0) {
+            char[charIndex].classList.remove('active', 'correct', 'incorrect', 'cursor');
+            charIndex--;
+            char[charIndex].classList.remove('correct', 'incorrect');
+            char[charIndex].classList.add('active', 'cursor');
+        } else if (/[a-zA-Z]/.test(event.key) || event.key === " ") {
+            if (char[charIndex].innerText === event.key) {
+                char[charIndex].classList.add('correct', 'cursor');
+                charIndex++;
+            } else {
+                char[charIndex].classList.add('incorrect');
+                mistakesCount++;
+                charIndex++;
+            }
+            // Move to the next character
+            if (charIndex < char.length) {
+                char[charIndex].classList.add('active', 'cursor');
+            }
 
-//             const { wpm, accuracy } = getCurrentStats();
-//             results.textContent = `WPM: ${wpm}, Accuracy: ${accuracy}%`;
+            //delete previous cursor
+            for (let i = 0; i < charIndex; i++) {
+                char[i].classList.remove('cursor');
 
-//             currentWordIndex++;
-//             previousEndTime = Date.now();
-//             highlightNextWord();
+                // Calculate and return WPM & accuracy
+                const getCurrentStats = () => {
+                    const elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
+                    const wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
+                    const wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
+                    const accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+                    return { wpmValue, accuracy: accuracy.toFixed(2) };
+                };
 
-//             inputField.value = ""; // Clear input field after space
-//             event.preventDefault(); // Prevent adding extra spaces
-//         }
-//     }
-// };
+                // Calculate and update WPM & accuracy
+                const { wpmValue, accuracy } = getCurrentStats();
+                wordPerMinutes.textContent = `${wpmValue} WPM`;
+                acc.textContent = `${accuracy}%`;
+            }
+        } 
+    })
+} else { // test ended, should display the score modals ,modalsIsShown should be set to true.
+    clearInterval(timer);
+    input.value = '';
+}
 
-// // Highlight the current word in red
-// const highlightNextWord = () => {
-//     const wordElements = wordDisplay.children;
-
-//     if (currentWordIndex < wordElements.length) {
-//         if (currentWordIndex > 0) {
-//             wordElements[currentWordIndex - 1].style.color = "black";
-//         }
-//         wordElements[currentWordIndex].style.color = "red";
-//     }
-// };
-
-// // Event listeners
-// // Attach `updateWord` to `keydown` instead of `input`
-// inputField.addEventListener("keydown", (event) => {
-//     startTimer();
-//     updateWord(event);
-// });
-// modeSelect.addEventListener("change", () => startTest());
-
-// // Start the test
-// startTest();
-
-// -------------------------------------------------------------------
 const theme = {
     isLicorice: false,
     isLinen: false,
@@ -313,6 +312,7 @@ $(document).ready(() => {
         wordHundred.addClass("current-game-mode");
         currentGameMode !== wordHundred ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = wordHundred;
+
     });
 
     // level changer.
