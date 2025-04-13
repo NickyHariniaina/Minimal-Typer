@@ -1,16 +1,24 @@
 :root {
   --font: "Roboto Mono", sans-serif;
-  --text-color: white;
+  --primary-font-color: black;
+  --secondary-font-color: white;
   --primary-color: #6da796;
   --secondary-color: #5c985d;
   --tertiary-color: #001d28;
   --low-transition: all 0.3s;
   --font-button-color: white;
+  --low: 1%;
+  --high: 5%;
+  --font-size: 1.2em;
+  --low-scale: 0.9;
+  --full-width: 100vw;
+  --full-box-width: 100%;
+  --full-height: 100vh;
+  --full-box-height: 100%;
 }
 
 * {
   font-family: var(--font);
-  color: var(--text-color);
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -18,55 +26,125 @@
 
 body {
   background-color: var(--tertiary-color);
-  height: 100vh;
-  overflow: hidden;
+  color: var(--secondary-font-color);
+  height: var(--full-height);
   transition: var(--low-transition);
+  overflow: hidden;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+
+  background: linear-gradient(
+    223deg,
+    var(--secondary-color) 0%,
+    var(--secondary-color) 50%,
+    var(--tertiary-color) 100%,
+
+    var(--secondary-color) 150%,
+    var(--secondary-color) 180%,
+    var(--tertiary-color) 200%,
+
+    var(--secondary-color) 250%,
+    var(--secondary-color) 280%,
+    var(--tertiary-color) 300%,
+
+    var(--secondary-color) 350%,
+    var(--secondary-color) 380%,
+    var(--tertiary-color) 400%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/*
+  Settings content.
+*/
+
 .settings {
+  width: var(--full-width);
+  height: var(--full-height);
+  padding-block: var(--low);
+  gap: var(--high-padding);
+
   background: rgba(255, 255, 255, 0.27);
   backdrop-filter: blur(3.5px);
   -webkit-backdrop-filter: blur(3.5px);
-  width: 100vw;
-  height: 100vh;
 
   position: absolute;
   top: 0;
-  padding-block: 2%;
+
   display: flex;
   flex-direction: column;
-  gap: 5%;
 }
 
 .settings__navbar {
-  width: 100%;
+  width: var(--full-box-width);
 }
 
 .settings__quit {
-  /* Part under construction, should be improved later */
-  background-color: red;
+  margin: var(--low);
   cursor: pointer;
 
   position: absolute;
   top: 0;
   left: 0;
 }
+
+.feather-x-circle {
+  stroke: var(--tertiary-color);
+  fill: white;
+  animation-name: turning-around;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}
+
+@keyframes turning-around {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
 .navbar__container {
-  width: 100%;
+  width: var(--full-box-width);
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 1%;
 }
 
 .navbar__item {
+  color: var(--secondary-font-color);
   opacity: 0.5;
   list-style-type: none;
   list-style-position: inside;
   background-color: #6da79654;
   text-align: center;
   width: 40%;
-  padding-block: 1%;
+  padding-block: var(--low);
   border-radius: 20px;
   transition: var(--low-transition);
+  cursor: pointer;
 }
 
 .navbar__item-selected {
@@ -88,7 +166,7 @@ body {
   display: none;
   flex-direction: column;
   width: 90%;
-  padding: 1%;
+  padding: var(--low);
   border-radius: 20px;
   margin: auto;
   background-color: #6da7963b;
@@ -99,7 +177,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 90%;
-  padding: 1%;
+  padding: var(--low);
   border-radius: 20px;
   margin: auto;
   background-color: #6da7963b;
@@ -137,7 +215,7 @@ body {
 .level__container button {
   width: 20%;
   font-size: 1.2em;
-  padding-block: 1%;
+  padding-block: var(--low);
   outline: none;
   border: none;
   border-radius: 20px;
@@ -147,11 +225,12 @@ body {
 .level__container button:active,
 .behavior__time button:active,
 .behavior__words button:active {
-  scale: 0.8;
+  scale: 0.9;
 }
 
 .level__easy {
   background-color: var(--primary-color);
+  color: var(--primary-font-color);
 }
 
 .level__easy:hover {
@@ -160,6 +239,7 @@ body {
 
 .level__medium {
   background-color: var(--secondary-color);
+  color: var(--secondary-font-color);
 }
 
 .level__medium:hover {
@@ -168,6 +248,7 @@ body {
 
 .level__hard {
   background-color: var(--tertiary-color);
+  color: var(--secondary-font-color);
 }
 
 .level__hard:hover {
@@ -183,13 +264,14 @@ body {
 .behavior__time,
 .behavior__words {
   display: flex;
-  gap: 1%;
+  gap: var(--low);
   justify-content: space-evenly;
 }
 
 .behavior__time button,
 .behavior__words button {
-  background-color: var(--secondary-color);
+  background-color: var(--tertiary-color);
+  color: var(--secondary-font-color);
   outline: none;
   border: none;
   padding-block: 2%;
@@ -200,7 +282,9 @@ body {
   transition: var(--low-transition);
 }
 
-/* Style for the theme changer button. */
+/* 
+  Theme button style.
+*/
 
 .theme__option-licorice {
   background-color: #211103 !important;
@@ -258,13 +342,47 @@ body {
 }
 
 .appearance__theme button:active {
-  scale: 0.8;
+  scale: 0.9;
 }
 
 .current-game-mode {
-  box-shadow: 0 0 10px white !important;
+  opacity: 0.5;
 }
 
-.navbar__item {
-  color: var(--font-button-color) !important;
+.score {
+  width: var(--full-width);
+  height: var(--full-height);
+  padding-block: var(--low);
+  gap: 10%;
+
+  background: var(--tertiary-color);
+
+  position: absolute;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#wpm-stat {
+  width: 50%;
+}
+
+.score__stat {
+  width: var(--full-width);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.score__stat h3 {
+  font-size: 2em;
+}
+
+.score__stat div {
+  display: inherit;
+  flex-direction: column;
+  align-items: center;
 }

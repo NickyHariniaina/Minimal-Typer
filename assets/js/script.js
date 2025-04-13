@@ -106,7 +106,6 @@
 // startTest();
 
 // -------------------------------------------------------------------
-
 const theme = {
     isLicorice: false,
     isLinen: false,
@@ -123,7 +122,9 @@ const theme = {
 }
 
 $(document).ready(() => {
-
+    $(".settings").hide();
+    $(".score").hide();
+    
     //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
@@ -158,8 +159,8 @@ $(document).ready(() => {
     let currentLevel = easy;
 
     // Open / Close settings.
+    
     // Open settings 
-
 
     // Close settings
     $(".settings__quit").click(() => {
@@ -189,87 +190,87 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--primary-color', '#211103');
         document.documentElement.style.setProperty('--secondary-color', '#3d1308');
         document.documentElement.style.setProperty('--tertiary-color', '#7b0d1e');
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'white');
+        document.documentElement.style.setProperty('--primary-font-color', 'white');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
     })
     linen.click(() => {
         theme.isLinen = true;
         document.documentElement.style.setProperty('--primary-color', '#f5e9e2');
         document.documentElement.style.setProperty('--secondary-color', '#e3b5a4');
         document.documentElement.style.setProperty('--tertiary-color', '#773344');
-        document.documentElement.style.setProperty('--text-color', 'black');
-        document.documentElement.style.setProperty('--font-button-color', 'black');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'black');
     })
     ocean.click(() => {
         theme.isOcean = true;
         document.documentElement.style.setProperty('--primary-color', '#75dddd');
         document.documentElement.style.setProperty('--secondary-color', '#508991');
         document.documentElement.style.setProperty('--tertiary-color', '#172a3a');
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'black');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
     })
     crayola.click(() => {
         theme.isCrayola = true;
         document.documentElement.style.setProperty('--primary-color', '#9f8082');
         document.documentElement.style.setProperty('--secondary-color', '#c76d7e');
         document.documentElement.style.setProperty('--tertiary-color', '#e85d75');
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'white');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
     })
     honeydew.click(() => {
         theme.isHoneyDew = true;
         document.documentElement.style.setProperty('--primary-color', '#e2fcef');
         document.documentElement.style.setProperty('--secondary-color', '#9b287b');
         document.documentElement.style.setProperty('--tertiary-color', '#5c164e');
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'black');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
     })
     gunmetal.click(() => {
         theme.isGunmetal = true;
         document.documentElement.style.setProperty('--primary-color', '#f7fff7');
         document.documentElement.style.setProperty('--secondary-color', '#4ecdc4');
         document.documentElement.style.setProperty('--tertiary-color', '#292f36');
-        document.documentElement.style.setProperty('--text-color', 'black');
-        document.documentElement.style.setProperty('--font-button-color', 'black');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white')
     })
     sunglow.click(() => {
         theme.isSunglow = true;
         document.documentElement.style.setProperty('--primary-color', '#fff05a');
         document.documentElement.style.setProperty('--secondary-color', '#ffd25a');
         document.documentElement.style.setProperty('--tertiary-color', '#ffaa5a');
-        document.documentElement.style.setProperty('--text-color', 'black');
-        document.documentElement.style.setProperty('--font-button-color', 'black');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'black')
     })
     dukeBlue.click(() => {
         theme.isDukeBlue = true;
         document.documentElement.style.setProperty('--primary-color', '#ff0054');
         document.documentElement.style.setProperty('--secondary-color', '#9e0059');
         document.documentElement.style.setProperty('--tertiary-color', '#390099');
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'white');
+        document.documentElement.style.setProperty('--primary-font-color', 'white');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white')
     })
     raisinBlack.click(() => {
         theme.isRaisinBlack = true;
         document.documentElement.style.setProperty('--primary-color', '#f4d8cd');
         document.documentElement.style.setProperty('--secondary-color', '#1e555c');
         document.documentElement.style.setProperty('--tertiary-color', '#3a2e39');
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'white');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
     })
     lavender.click(() => {
         theme.isLavender = true;
         document.documentElement.style.setProperty('--primary-color', '#eeeeff');
         document.documentElement.style.setProperty('--secondary-color', '#a24936');
         document.documentElement.style.setProperty('--tertiary-color', '#000000');
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'white');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
     })
     mint.click(() => {
         document.documentElement.style.setProperty('--primary-color', '#6da796');
         document.documentElement.style.setProperty('--secondary-color', '#5c985d');
-        document.documentElement.style.setProperty('--tertiary-color', '#001d28'); 
-        document.documentElement.style.setProperty('--text-color', 'white');
-        document.documentElement.style.setProperty('--font-button-color', 'white');
+        document.documentElement.style.setProperty('--tertiary-color', '#001d28');
+        document.documentElement.style.setProperty('--primary-font-color', 'black');
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
     })
 
     // Mode changer.
@@ -329,5 +330,35 @@ $(document).ready(() => {
         hard.addClass("current-game-mode");
         currentLevel !== hard ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = hard;
+    })
+
+    // Score and stat.
+
+    const ctx = $("#wpm-stat");
+    const wpm = [20, 30, 30, 35, 12, 20, 30, 40, 40, 12, 23];
+    const accuracy = [10, 10, 30, 30];
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [0,1,2,3,4,5,6,7,8,9,10,11,12],
+            datasets: [
+                {
+                    label: "Wpm",
+                    data: [...wpm],
+                    borderColor: "white",
+                    tension: 0.3,
+                    fill: true,
+                }
+            ]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false, // Allow custom width and height
+        },
+    })
+    
+
+    $(".score__quit").click(() => {
+        $(".score").hide("fast");
     })
 })
