@@ -95,18 +95,9 @@ if (charIndex < char.length) {
                 // Calculate and update WPM & accuracy
                 const { wpmValue, accuracy } = getCurrentStats();
                 wordPerMinutes.textContent = `${wpmValue} WPM`;
-                acc.textContent = `${accuracy}% Accuracy`;
+                acc.textContent = `${accuracy}%`;
             }
         }
-
-
-
-        //remove cursor before the active char if the active char is typed 
-
-
-        // add cursor before the active char
-        console.log(charIndex);
-
     });
 } else { // test ended, should display the score modals ,modalsIsShown should be set to true.
     clearInterval(timer);

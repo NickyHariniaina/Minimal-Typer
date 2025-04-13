@@ -13,7 +13,6 @@
 }
 
 body {
-  font-size: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,11 +21,6 @@ body {
   background-repeat: no-repeat;
   height: 100vh;
   overflow: hidden;
-}
-
-header h1 {
-  margin: 20px -35px;
-  font-size: 3.6vw;
 }
 
 #mode {
@@ -40,27 +34,16 @@ main {
 }
 
 #word-display {
-  font-size: 32.5px;
-  margin-inline: 20vw;
-  padding: 35px;
+  font-size: 1.7em;
+  text-align: justify;
+  width: 80%;
+  padding: 2%;
   border-radius: 25px;
   background-color: var(--container-color);
 }
 
 option {
   background-color: rgb(0, 0, 0);
-}
-
-nav {
-  gap: 100px;
-}
-
-.nav__icon {
-  font-size: 100px;
-}
-.nav__icon:hover {
-  cursor: pointer;
-  scale: 1.1;
 }
 
 .results {
@@ -71,11 +54,11 @@ nav {
 
 #wpm,
 #accuracy {
+  width: 10vw;
+  font-size: 1.3em;
   text-align: center;
   background-color: var(--container-color);
   border-radius: 10px;
-  height: 100px;
-  width: 150px;
   line-height: 50px;
 }
 
