@@ -122,7 +122,9 @@ const theme = {
 }
 
 $(document).ready(() => {
-
+    $(".settings").hide();
+    $(".score").hide();
+    
     //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
@@ -157,7 +159,7 @@ $(document).ready(() => {
     let currentLevel = easy;
 
     // Open / Close settings.
-    $(".settings").hide();
+    
     // Open settings 
 
     // Close settings
@@ -355,7 +357,6 @@ $(document).ready(() => {
         },
     })
     
-    $(".score").hide();
 
     $(".score__quit").click(() => {
         $(".score").hide("fast");
