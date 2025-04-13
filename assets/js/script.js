@@ -35,10 +35,10 @@ modeSelect.addEventListener("change", () => {
 });
 
 // // Generate a random word from the selected mode
-// const getRandomWord = (mode) => {
-//     const wordList = words[mode];
-//     return wordList[Math.floor(Math.random() * wordList.length)];
-// };
+const getRandomWord = (mode) => {
+    const wordList = words[mode];
+    return wordList[Math.floor(Math.random() * wordList.length)];
+};
 
 
 for (let i = 0; i < wordCount; i++) {
@@ -66,7 +66,7 @@ if (charIndex < char.length) {
             charIndex--;
             char[charIndex].classList.remove('correct', 'incorrect');
             char[charIndex].classList.add('active', 'cursor');
-        } else if (/[a-zA-Z]/.test(event.key) || event.key === " ") {
+        } else if ((/[a-zA-Z]/.test(event.key) || event.key === " ") && event.key !== "Escape") {
             if (char[charIndex].innerText === event.key) {
                 char[charIndex].classList.add('correct', 'cursor');
                 charIndex++;
@@ -160,10 +160,18 @@ $(document).ready(() => {
     // Open / Close settings.
     
     // Open settings 
+    $(".option__settings").click(() => {
+        $(".settings").show("fast");
+    })
 
     // Close settings
     $(".settings__quit").click(() => {
         $(".settings").hide(300);
+    })
+    $(document).keydown((event) => {
+        if(event.key === "Escape") {
+            $(".settings").hide(300);
+        }
     })
 
     // Browse between settings page:
@@ -361,4 +369,6 @@ $(document).ready(() => {
     $(".score__quit").click(() => {
         $(".score").hide("fast");
     })
+
+    
 })

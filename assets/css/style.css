@@ -15,6 +15,7 @@
   --full-box-width: 100%;
   --full-height: 100vh;
   --full-box-height: 100%;
+  --container-color: rgba(0, 0, 0, 0.366);
 }
 
 * {
@@ -30,50 +31,13 @@ body {
   height: var(--full-height);
   transition: var(--low-transition);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--tertiary-color);
+  background: linear-gradient(223deg, var(--tertiary-color) 40%, var(--secondary-color) 80%, var(--primary-color) 100%);
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-
-  background: linear-gradient(
-    223deg,
-    var(--secondary-color) 0%,
-    var(--secondary-color) 50%,
-    var(--tertiary-color) 100%,
-
-    var(--secondary-color) 150%,
-    var(--secondary-color) 180%,
-    var(--tertiary-color) 200%,
-
-    var(--secondary-color) 250%,
-    var(--secondary-color) 280%,
-    var(--tertiary-color) 300%,
-
-    var(--secondary-color) 350%,
-    var(--secondary-color) 380%,
-    var(--tertiary-color) 400%
-  );
-  background-size: 400% 400%;
-  animation: gradient-shift 5s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
 /*
   Settings content.
@@ -392,13 +356,17 @@ body::before {
   font-size: inherit;
   background-color: transparent;
 }
+
 main {
-  display: inherit;
-  flex-direction: inherit;
-  align-items: inherit;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5%;
 }
 
 #word-display {
+  color: var(--secondary-font-color);
   font-size: 1.7em;
   text-align: justify;
   width: 80%;
