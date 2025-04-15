@@ -5,23 +5,41 @@
  * 
  * Sur ce... Amusez-vous bien ! 
  */
-
 let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 let wordsToType = [];
-const modeSelect = document.getElementById("mode");
-const wordDisplay = document.getElementById("word-display");
-const input = document.getElementById("input-field");
+
 
 const wordPerMinutes = document.getElementById("wpm");
 const acc = document.getElementById("accuracy");
 const wordCount = 50;
-
+const wordDisplay = document.getElementById("word-display");
+let mode = "easy";
 let timer;
 let charIndex = 0;
 let isTyping = false;
 let mistakesCount = 0;
 let keydownCount = 0;
+let elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
+let wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
+let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
+let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+
+// Calculate and return WPM & accuracy
+const getCurrentStats = () => {
+    elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
+    wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
+    wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(0); // WPM
+    accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+    return { wpmValue, accuracy: accuracy.toFixed(2) };
+};
+
+setInterval(() => {
+    const { wpmValue, accuracy } = getCurrentStats();
+    wordPerMinutes.textContent = `${wpmValue} WPM`;
+    acc.textContent = `${accuracy}%`;
+}, 1000);
+
 
 // Change later
 const words = {
@@ -29,81 +47,6 @@ const words = {
     'medium': ["keyboard", "monitor", "printer", "charger", "battery"],
     'hard': ["synchronize", "complicated", "development", "extravagant", "misconception"]
 };
-modeSelect.addEventListener("change", () => {
-    mode = modeSelect.value;
-    wordsToType = [];
-});
-
-// // Generate a random word from the selected mode
-const getRandomWord = (mode) => {
-    const wordList = words[mode];
-    return wordList[Math.floor(Math.random() * wordList.length)];
-};
-
-
-for (let i = 0; i < wordCount; i++) {
-    wordsToType.push(getRandomWord(modeSelect.value));
-}
-
-// Display text on the screen.
-for (const char in wordsToType.join(" ")) {
-    const joinedWord = wordsToType.join(" ");
-    wordDisplay.innerHTML += `<span>${joinedWord[char]}</span>`;
-}
-
-
-wordDisplay.querySelectorAll('span')[0].classList.add('active');
-
-startTime = Date.now(); //initialistion of startTime
-
-const char = wordDisplay.querySelectorAll('span'); //the number of char in the display
-if (charIndex < char.length) {
-    document.addEventListener('keydown', (event) => {
-
-        // Delete on backspace
-        if (event.key === 'Backspace' && charIndex > 0) {
-            char[charIndex].classList.remove('active', 'correct', 'incorrect', 'cursor');
-            charIndex--;
-            char[charIndex].classList.remove('correct', 'incorrect');
-            char[charIndex].classList.add('active', 'cursor');
-        } else if ((/[a-zA-Z]/.test(event.key) || event.key === " ") && event.key !== "Escape") {
-            if (char[charIndex].innerText === event.key) {
-                char[charIndex].classList.add('correct', 'cursor');
-                charIndex++;
-            } else {
-                char[charIndex].classList.add('incorrect');
-                mistakesCount++;
-                charIndex++;
-            }
-            // Move to the next character
-            if (charIndex < char.length) {
-                char[charIndex].classList.add('active', 'cursor');
-            }
-
-            //delete previous cursor
-            for (let i = 0; i < charIndex; i++) {
-                char[i].classList.remove('cursor');
-
-                // Calculate and return WPM & accuracy
-                const getCurrentStats = () => {
-                    const elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
-                    const wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
-                    const wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
-                    const accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
-                    return { wpmValue, accuracy: accuracy.toFixed(2) };
-                };
-
-                // Calculate and update WPM & accuracy
-                const { wpmValue, accuracy } = getCurrentStats();
-                wordPerMinutes.textContent = `${wpmValue} WPM`;
-                acc.textContent = `${accuracy}%`;
-            }
-        } 
-    })
-} else { // test ended, should display the score modals ,modalsIsShown should be set to true.
-    clearInterval(timer);
-    input.value = '';
-}
 
 const theme = {
     isLicorice: false,
@@ -120,10 +63,74 @@ const theme = {
     isLavender: false,
 }
 
+const restore = () => {
+    wordDisplay.innerText = "";
+    charIndex = 0;
+    wordPerMinutes.innerText = "...";
+    acc.innerText = "...";
+}
+
+const launch = () => {
+    // // Generate a random word from the selected mode
+    const getRandomWord = (mode) => {
+        const wordList = words[mode];
+        return wordList[Math.floor(Math.random() * wordList.length)];
+    };
+
+
+    for (let i = 0; i < wordCount; i++) {
+        wordsToType.push(getRandomWord(mode));
+    }
+
+    // Display text on the screen.
+    for (const char in wordsToType.join(" ")) {
+        const joinedWord = wordsToType.join(" ");
+        wordDisplay.innerHTML += `<span>${joinedWord[char]}</span>`;
+    }
+
+    startTime = Date.now(); //initialistion of startTime
+    const char = wordDisplay.querySelectorAll('span'); //the number of char in the display
+    if (charIndex < char.length - 1) {
+        document.addEventListener('keydown', (event) => {
+            console.log(char.length - 1, charIndex)
+            // Delete on backspace
+            if (event.key === 'Backspace' && charIndex > 0) {
+                char[charIndex].classList.remove('active', 'correct', 'incorrect', 'cursor');
+                charIndex--;
+                char[charIndex].classList.remove('correct', 'incorrect');
+                char[charIndex].classList.add('active', 'cursor');
+            } else if ((/[a-zA-Z]/.test(event.key) || event.key === " ") && event.key !== "Escape") {
+                if (char[charIndex].innerText === event.key) {
+                    char[charIndex].classList.add('correct', 'cursor');
+                    charIndex++;
+                } else {
+                    char[charIndex].classList.add('incorrect');
+                    mistakesCount++;
+                    charIndex++;
+                }
+                // Move to the next character
+                if (charIndex < char.length) {
+                    char[charIndex].classList.add('active', 'cursor');
+                }
+
+                //delete previous cursor
+                for (let i = 0; i < charIndex; i++) {
+                    char[i].classList.remove('cursor');
+                }
+            }
+        })
+    } if (charIndex === char.length - 1){ // test ended, should display the score modals ,modalsIsShown should be set to true.
+        clearInterval(timer);
+        console.log("test ended")
+    }
+}
+
+launch();
+
 $(document).ready(() => {
     $(".settings").hide();
     $(".score").hide();
-    
+
     //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
@@ -158,7 +165,7 @@ $(document).ready(() => {
     let currentLevel = easy;
 
     // Open / Close settings.
-    
+
     // Open settings 
     $(".option__settings").click(() => {
         $(".settings").show("fast");
@@ -169,7 +176,7 @@ $(document).ready(() => {
         $(".settings").hide(300);
     })
     $(document).keydown((event) => {
-        if(event.key === "Escape") {
+        if (event.key === "Escape") {
             $(".settings").hide(300);
         }
     })
@@ -328,27 +335,38 @@ $(document).ready(() => {
         easy.addClass("current-game-mode");
         currentLevel !== easy ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = easy;
+        mode = "easy";
+        wordsToType = [];
+        restore();
+        launch();
     });
     medium.click(() => {
         medium.addClass("current-game-mode");
         currentLevel !== medium ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = medium;
+        mode = "medium";
+        wordsToType = [];
+        restore();
+        launch();
     })
     hard.click(() => {
         hard.addClass("current-game-mode");
         currentLevel !== hard ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = hard;
+        mode = "hard";
+        wordsToType = [];
+        restore();
+        launch();
     })
-
     // Score and stat.
 
     const ctx = $("#wpm-stat");
-    const wpm = [20, 30, 30, 35, 12, 20, 30, 40, 40, 12, 23];
+    const wpm = [20, 40, 40, 12, 23];
     const accuracy = [10, 10, 30, 30];
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [0,1,2,3,4,5,6,7,8,9,10,11,12],
+            labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             datasets: [
                 {
                     label: "Wpm",
@@ -360,15 +378,15 @@ $(document).ready(() => {
             ]
         },
         options: {
-          responsive: false,
-          maintainAspectRatio: false, // Allow custom width and height
+            responsive: false,
+            maintainAspectRatio: false, // Allow custom width and height
         },
     })
-    
+
 
     $(".score__quit").click(() => {
         $(".score").hide("fast");
     })
 
-    
+
 })
