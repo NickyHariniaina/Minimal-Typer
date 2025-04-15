@@ -63,67 +63,82 @@ const theme = {
     isLavender: false,
 }
 
-const restore = () => {
+const restore = (handleKeyDown) => {
     wordDisplay.innerText = "";
     charIndex = 0;
     wordPerMinutes.innerText = "...";
     acc.innerText = "...";
 }
 
+// Define the keydown event listener as a named function
+const handleKeyDown = (event) => {
+    const char = wordDisplay.querySelectorAll('span'); // Get all characters
+
+    // Delete on backspace
+    if (event.key === 'Backspace' && charIndex > 0) {
+        char[charIndex].classList.remove('active', 'correct', 'incorrect', 'cursor');
+        charIndex--;
+        char[charIndex].classList.remove('correct', 'incorrect');
+        char[charIndex].classList.add('active', 'cursor');
+    } else if ((/[a-zA-Z]/.test(event.key) || event.key === " ") && event.key !== "Escape") {
+        if (char[charIndex].innerText === event.key) {
+            char[charIndex].classList.add('correct', 'cursor');
+            charIndex++;
+        } else {
+            char[charIndex].classList.add('incorrect');
+            mistakesCount++;
+            charIndex++;
+        }
+        // Move to the next character
+        if (charIndex < char.length) {
+            char[charIndex].classList.add('active', 'cursor');
+        }
+
+        // Delete previous cursor
+        for (let i = 0; i < charIndex; i++) {
+            char[i].classList.remove('cursor');
+        }
+    }
+
+    // Check if the test has ended
+    if (charIndex === char.length) {
+        clearInterval(timer);
+        console.log("Test ended");
+    }
+};
+
 const launch = () => {
-    // // Generate a random word from the selected mode
+    // Reset state
+    wordDisplay.innerText = "";
+    charIndex = 0;
+    mistakesCount = 0;
+    isTyping = false;
+    wordsToType = [];
+
+    // Generate random words for the selected mode
     const getRandomWord = (mode) => {
         const wordList = words[mode];
         return wordList[Math.floor(Math.random() * wordList.length)];
     };
 
-
     for (let i = 0; i < wordCount; i++) {
         wordsToType.push(getRandomWord(mode));
     }
 
-    // Display text on the screen.
-    for (const char in wordsToType.join(" ")) {
-        const joinedWord = wordsToType.join(" ");
-        wordDisplay.innerHTML += `<span>${joinedWord[char]}</span>`;
+    // Display text on the screen
+    const joinedWord = wordsToType.join(" ");
+    for (const char of joinedWord) {
+        wordDisplay.innerHTML += `<span>${char}</span>`;
     }
 
-    startTime = Date.now(); //initialistion of startTime
-    const char = wordDisplay.querySelectorAll('span'); //the number of char in the display
-    if (charIndex < char.length - 1) {
-        document.addEventListener('keydown', (event) => {
-            console.log(char.length - 1, charIndex)
-            // Delete on backspace
-            if (event.key === 'Backspace' && charIndex > 0) {
-                char[charIndex].classList.remove('active', 'correct', 'incorrect', 'cursor');
-                charIndex--;
-                char[charIndex].classList.remove('correct', 'incorrect');
-                char[charIndex].classList.add('active', 'cursor');
-            } else if ((/[a-zA-Z]/.test(event.key) || event.key === " ") && event.key !== "Escape") {
-                if (char[charIndex].innerText === event.key) {
-                    char[charIndex].classList.add('correct', 'cursor');
-                    charIndex++;
-                } else {
-                    char[charIndex].classList.add('incorrect');
-                    mistakesCount++;
-                    charIndex++;
-                }
-                // Move to the next character
-                if (charIndex < char.length) {
-                    char[charIndex].classList.add('active', 'cursor');
-                }
+    startTime = Date.now(); // Initialize start time
 
-                //delete previous cursor
-                for (let i = 0; i < charIndex; i++) {
-                    char[i].classList.remove('cursor');
-                }
-            }
-        })
-    } if (charIndex === char.length - 1){ // test ended, should display the score modals ,modalsIsShown should be set to true.
-        clearInterval(timer);
-        console.log("test ended")
-    }
-}
+    // Remove any existing keydown event listener
+    document.removeEventListener('keydown', handleKeyDown);
+
+    // Add the keydown event listener
+    document.addEventListener('keydown', handleKeyDown);
+};
 
 launch();
 
