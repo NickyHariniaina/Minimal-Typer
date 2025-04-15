@@ -12,7 +12,7 @@ let wordsToType = [];
 
 const wordPerMinutes = document.getElementById("wpm");
 const acc = document.getElementById("accuracy");
-const wordCount = 50;
+let wordCount = 10;
 const wordDisplay = document.getElementById("word-display");
 let mode = "easy";
 let timer;
@@ -68,6 +68,7 @@ const restore = (handleKeyDown) => {
     charIndex = 0;
     wordPerMinutes.innerText = "...";
     acc.innerText = "...";
+    wordsToType = [];
 }
 
 // Define the keydown event listener as a named function
@@ -108,12 +109,6 @@ const handleKeyDown = (event) => {
 };
 
 const launch = () => {
-    // Reset state
-    wordDisplay.innerText = "";
-    charIndex = 0;
-    mistakesCount = 0;
-    isTyping = false;
-    wordsToType = [];
 
     // Generate random words for the selected mode
     const getRandomWord = (mode) => {
@@ -327,21 +322,33 @@ $(document).ready(() => {
         wordTen.addClass("current-game-mode");
         currentGameMode !== wordTen ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = wordTen;
+        wordCount = 10;
+        restore();
+        launch();
     });
     wordTwentyFive.click(() => {
         wordTwentyFive.addClass("current-game-mode");
         currentGameMode !== wordTwentyFive ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = wordTwentyFive;
+        wordCount = 25;
+        restore();
+        launch();
     });
     wordFifty.click(() => {
         wordFifty.addClass("current-game-mode");
         currentGameMode !== wordFifty ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = wordFifty;
+        wordCount = 50;
+        restore();
+        launch();
     });
     wordHundred.click(() => {
         wordHundred.addClass("current-game-mode");
         currentGameMode !== wordHundred ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = wordHundred;
+        wordCount = 100;
+        restore();
+        launch();
 
     });
 

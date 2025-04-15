@@ -1,10 +1,10 @@
 :root {
   --font: "Roboto Mono", sans-serif;
-  --primary-font-color: black;
+  --primary-font-color: white;
   --secondary-font-color: white;
-  --primary-color: #6da796;
-  --secondary-color: #5c985d;
-  --tertiary-color: #001d28;
+  --primary-color: #211103;
+  --secondary-color: #3d1308;
+  --tertiary-color: #7b0d1e;
   --low-transition: all 0.3s;
   --font-button-color: white;
   --low: 1%;
@@ -370,9 +370,15 @@ main {
   font-size: 1.7em;
   text-align: justify;
   width: 80%;
+  height: 50vh;
   padding: 2%;
   border-radius: 25px;
-  background-color: var(--container-color);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
 }
 
 option {
