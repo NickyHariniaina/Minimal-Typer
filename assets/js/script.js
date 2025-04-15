@@ -103,8 +103,12 @@ const handleKeyDown = (event) => {
 
     // Check if the test has ended
     if (charIndex === char.length) {
+        document.querySelector(".wpm p").innerText = wpmValue;
+        document.querySelector(".accuracy p").innerText = accuracy.toFixed(0) + " %";
+        document.querySelector(".mistake p").innerText = mistakesCount;
+        document.querySelector(".typed-word p").innerText = wordCount;
         clearInterval(timer);
-        console.log("Test ended");
+        $(".score").show("fast");
     }
 };
 
