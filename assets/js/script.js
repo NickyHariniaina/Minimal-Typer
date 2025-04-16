@@ -9,7 +9,7 @@ let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 let wordsToType = [];
 
-
+const customCursor = document.querySelector(".custom-cursor");
 const wordPerMinutes = document.getElementById("wpm");
 const acc = document.getElementById("accuracy");
 let wordCount = 10;
@@ -24,6 +24,12 @@ let elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
 let wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
 let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
 let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+
+// add a custom cursor
+document.addEventListener('mousemove', (e) => {
+    customCursor.style.left = `${e.pageX}px`;
+    customCursor.style.top = `${e.pageY}px`;
+});
 
 // Calculate and return WPM & accuracy
 const getCurrentStats = () => {
@@ -47,6 +53,8 @@ const words = {
     'medium': ["keyboard", "monitor", "printer", "charger", "battery"],
     'hard': ["synchronize", "complicated", "development", "extravagant", "misconception"]
 };
+
+
 
 const theme = {
     isLicorice: false,
@@ -220,6 +228,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#7b0d1e');
         document.documentElement.style.setProperty('--primary-font-color', 'white');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/licorice-cursor.png")
     })
     linen.click(() => {
         theme.isLinen = true;
@@ -228,6 +237,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#773344');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'black');
+        customCursor.setAttribute("src","assets/images/cursor-style/licorice-cursor.png")
     })
     ocean.click(() => {
         theme.isOcean = true;
@@ -236,6 +246,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#172a3a');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/raisinBlack-cursor.png")
     })
     crayola.click(() => {
         theme.isCrayola = true;
@@ -244,6 +255,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#e85d75');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/licorice-cursor.png")
     })
     honeydew.click(() => {
         theme.isHoneyDew = true;
@@ -252,6 +264,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#5c164e');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/honeyDew-cursor.png")
     })
     gunmetal.click(() => {
         theme.isGunmetal = true;
@@ -259,7 +272,8 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--secondary-color', '#4ecdc4');
         document.documentElement.style.setProperty('--tertiary-color', '#292f36');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
-        document.documentElement.style.setProperty('--secondary-font-color', 'white')
+        document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/raisinBlack-cursor.png")
     })
     sunglow.click(() => {
         theme.isSunglow = true;
@@ -267,7 +281,8 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--secondary-color', '#ffd25a');
         document.documentElement.style.setProperty('--tertiary-color', '#ffaa5a');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
-        document.documentElement.style.setProperty('--secondary-font-color', 'black')
+        document.documentElement.style.setProperty('--secondary-font-color', 'black');
+        customCursor.setAttribute("src","assets/images/cursor-style/sunglow-cursor.png")
     })
     dukeBlue.click(() => {
         theme.isDukeBlue = true;
@@ -276,6 +291,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#390099');
         document.documentElement.style.setProperty('--primary-font-color', 'white');
         document.documentElement.style.setProperty('--secondary-font-color', 'white')
+        customCursor.setAttribute("src","assets/images/cursor-style/dukeBlue-cursor.png")
     })
     raisinBlack.click(() => {
         theme.isRaisinBlack = true;
@@ -284,6 +300,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#3a2e39');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/raisinBlack-cursor.png")
     })
     lavender.click(() => {
         theme.isLavender = true;
@@ -292,6 +309,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#000000');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/lavender-cursor.png")
     })
     mint.click(() => {
         document.documentElement.style.setProperty('--primary-color', '#6da796');
@@ -299,6 +317,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#001d28');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
+        customCursor.setAttribute("src","assets/images/cursor-style/mint-cursor.png")
     })
 
     // Mode changer.
