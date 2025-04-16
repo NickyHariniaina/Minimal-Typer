@@ -39,7 +39,7 @@ setInterval(() => {
     const { wpmValue, accuracy } = getCurrentStats();
     wordPerMinutes.textContent = `${wpmValue} WPM`;
     acc.textContent = `${accuracy}%`;
-}, 1000);
+}, 700);
 
 
 // Change later
@@ -119,6 +119,13 @@ const handleKeyDown = (event) => {
     }
 };
 
+//restart the game if scoreBoard is reduced
+const scoreQuit = document.querySelector(".score__quit")
+scoreQuit.addEventListener("click", ()=> {
+    restore();
+    launch();
+})
+
 const launch = () => {
 
     // Generate random words for the selected mode
@@ -136,7 +143,7 @@ const launch = () => {
     for (const char of joinedWord) {
         wordDisplay.innerHTML += `<span>${char}</span>`;
     }
-
+ 
     startTime = Date.now(); // Initialize start time
 
     // Remove any existing keydown event listener
