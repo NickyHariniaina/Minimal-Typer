@@ -388,11 +388,14 @@ option {
 .results {
   display: inherit;
   flex-direction: row;
-  gap: 50vw;
+  gap: 10vw;
+  align-items: center;
+  margin-top: 3%;
 }
 
 #wpm,
-#accuracy {
+#accuracy,
+#status {
   width: 10vw;
   font-size: 1.3em;
   text-align: center;
@@ -402,8 +405,8 @@ option {
 }
 
 span.correct {
-  transition: all 0.1s;
-  color: #31c48d;
+  transition: all 0.5s;
+  color: var(--tertiary-color);
 }
 
 span.incorrect {

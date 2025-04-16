@@ -1,53 +1,33 @@
-/**
- * Point culture (en Français car je suis un peu obligé): 
- * Dans ce genre de jeu, un mot equivaut a 5 caractères, y compris les espaces. 
- * La precision, c'est le pourcentage de caractères tapées correctement sur toutes les caractères tapées.
- * 
- * Sur ce... Amusez-vous bien ! 
- */
+// Document Selector
+const status = document.querySelector("#status");
+const wordPerMinutes = document.getElementById("wpm");
+const acc = document.getElementById("accuracy");
+const wordDisplay = document.getElementById("word-display");
+
+// Variables
 let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 let wordsToType = [];
-
-
-const wordPerMinutes = document.getElementById("wpm");
-const acc = document.getElementById("accuracy");
 let wordCount = 10;
-const wordDisplay = document.getElementById("word-display");
 let mode = "easy";
+let currentWord = 0;
 let timer;
 let charIndex = 0;
 let isTyping = false;
 let mistakesCount = 0;
-let keydownCount = 0;
 let elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
 let wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
 let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
 let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+let time = 15;
+let gameMode = "timer";
 
-// Calculate and return WPM & accuracy
-const getCurrentStats = () => {
-    elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
-    wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
-    wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(0); // WPM
-    accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
-    return { wpmValue, accuracy: accuracy.toFixed(2) };
-};
-
-setInterval(() => {
-    const { wpmValue, accuracy } = getCurrentStats();
-    wordPerMinutes.textContent = `${wpmValue} WPM`;
-    acc.textContent = `${accuracy}%`;
-}, 1000);
-
-
-// Change later
+// DS.
 const words = {
     'easy': ["apple", "banana", "grape", "orange", "cherry"],
     'medium': ["keyboard", "monitor", "printer", "charger", "battery"],
     'hard': ["synchronize", "complicated", "development", "extravagant", "misconception"]
 };
-
 const theme = {
     isLicorice: false,
     isLinen: false,
@@ -62,16 +42,16 @@ const theme = {
     isFawn: false,
     isLavender: false,
 }
+const wpmDS = [];
+// Function.
 
-const restore = (handleKeyDown) => {
-    wordDisplay.innerText = "";
-    charIndex = 0;
-    wordPerMinutes.innerText = "...";
-    acc.innerText = "...";
-    wordsToType = [];
-}
-
-// Define the keydown event listener as a named function
+const getCurrentStats = () => {
+    elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
+    wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
+    wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(0); // WPM
+    accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+    return { wpmValue, accuracy: accuracy.toFixed(2) };
+};
 const handleKeyDown = (event) => {
     const char = wordDisplay.querySelectorAll('span'); // Get all characters
 
@@ -111,7 +91,14 @@ const handleKeyDown = (event) => {
         $(".score").show("fast");
     }
 };
-
+const restore = () => {
+    wordDisplay.innerText = "";
+    charIndex = 0;
+    wordPerMinutes.innerText = "...";
+    acc.innerText = "...";
+    wordsToType = [];
+    mistakesCount = 0;
+}
 const launch = () => {
 
     // Generate random words for the selected mode
@@ -139,12 +126,22 @@ const launch = () => {
     document.addEventListener('keydown', handleKeyDown);
 };
 
+// Interval.
+setInterval(() => {
+    const { wpmValue, accuracy } = getCurrentStats();
+    wordPerMinutes.textContent = `${wpmValue} WPM`;
+    acc.textContent = `${accuracy}%`;
+    let newValue = +wpmValue;
+    wpmDS.push(newValue);
+}, 1000);
+
+console.log(wpmDS);
+
 launch();
 
+// Jquery part.
 $(document).ready(() => {
-    $(".settings").hide();
-    $(".score").hide();
-
+    
     //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
@@ -173,8 +170,8 @@ $(document).ready(() => {
     const medium = $(".level__medium");
     const hard = $(".level__hard");
 
-    // current state.
-    let currentTheme = mint;
+    // Default status.
+    $(".score").hide();
     let currentGameMode = timeFifteen;
     let currentLevel = easy;
 
@@ -188,11 +185,6 @@ $(document).ready(() => {
     // Close settings
     $(".settings__quit").click(() => {
         $(".settings").hide(300);
-    })
-    $(document).keydown((event) => {
-        if (event.key === "Escape") {
-            $(".settings").hide(300);
-        }
     })
 
     // Browse between settings page:
@@ -306,21 +298,40 @@ $(document).ready(() => {
         timeFifteen.addClass("current-game-mode");
         currentGameMode !== timeFifteen ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeFifteen;
+        gameMode = "timer";
+        restore();
+        launch();
+        startTimer(15); // Start the timer for 15 seconds
     });
+
     timeThirty.click(() => {
-        timeThirty.addClass("current-game-mode")
+        timeThirty.addClass("current-game-mode");
         currentGameMode !== timeThirty ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeThirty;
+        gameMode = "timer";
+        restore();
+        launch();
+        startTimer(30); // Start the timer for 30 seconds
     });
+
     timeOneMinute.click(() => {
         timeOneMinute.addClass("current-game-mode");
         currentGameMode !== timeOneMinute ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeOneMinute;
+        gameMode = "timer";
+        restore();
+        launch();
+        startTimer(60); // Start the timer for 60 seconds
     });
+
     timeTwoMinutes.click(() => {
         timeTwoMinutes.addClass("current-game-mode");
         currentGameMode !== timeTwoMinutes ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeTwoMinutes;
+        gameMode = "timer";
+        restore();
+        launch();
+        startTimer(120); // Start the timer for 120 seconds
     });
     wordTen.click(() => {
         wordTen.addClass("current-game-mode");
@@ -329,6 +340,8 @@ $(document).ready(() => {
         wordCount = 10;
         restore();
         launch();
+        gameMode = "counter";
+        status.innerText = `0 / ${wordCount}`
     });
     wordTwentyFive.click(() => {
         wordTwentyFive.addClass("current-game-mode");
@@ -337,6 +350,8 @@ $(document).ready(() => {
         wordCount = 25;
         restore();
         launch();
+        gameMode = "counter";
+        status.innerText = `0 / ${wordCount}`
     });
     wordFifty.click(() => {
         wordFifty.addClass("current-game-mode");
@@ -345,6 +360,8 @@ $(document).ready(() => {
         wordCount = 50;
         restore();
         launch();
+        gameMode = "counter";
+        status.innerText = `0 / ${wordCount}`
     });
     wordHundred.click(() => {
         wordHundred.addClass("current-game-mode");
@@ -353,7 +370,8 @@ $(document).ready(() => {
         wordCount = 100;
         restore();
         launch();
-
+        gameMode = "counter";
+        status.innerText = `0 / ${wordCount}`
     });
 
     // level changer.
@@ -384,11 +402,10 @@ $(document).ready(() => {
         restore();
         launch();
     })
-    // Score and stat.
 
+    // Score and stat using chart.js
     const ctx = $("#wpm-stat");
-    const wpm = [20, 40, 40, 12, 23];
-    const accuracy = [10, 10, 30, 30];
+    console.log("this is the wpmDS" + wpmDS);
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -396,7 +413,7 @@ $(document).ready(() => {
             datasets: [
                 {
                     label: "Wpm",
-                    data: [...wpm],
+                    data: wpmDS,
                     borderColor: "white",
                     tension: 0.3,
                     fill: true,
@@ -409,10 +426,16 @@ $(document).ready(() => {
         },
     })
 
+    //Quit score... It is automatically opened if the game has finished.
 
     $(".score__quit").click(() => {
         $(".score").hide("fast");
     })
 
-
+    // Shortcuts
+    $(document).keydown((event) => {
+        if (event.key === "Escape") {
+            $(".settings").hide(300);
+        }
+    })
 })
