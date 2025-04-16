@@ -24,13 +24,14 @@ let elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
 let wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
 let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
 let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+let lastHighCharIndex = 0; //the last high index progression count
 
 // Calculate and return WPM & accuracy
 const getCurrentStats = () => {
     elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
     wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
     wpmValue = Math.max(0,(wordsTyped / (elapsedTime / 60)).toFixed(0)); // WPM
-    accuracy = Math.max(0,((charIndex - mistakesCount) / charIndex) * 100) || 0; // Accuracy
+    accuracy = Math.max(0,((lastHighCharIndex - mistakesCount) / lastHighCharIndex) * 100) || 0; // Accuracy
     return { wpmValue, accuracy: accuracy.toFixed(2) };
 };
 
@@ -74,6 +75,12 @@ const restore = (handleKeyDown) => {
 // Define the keydown event listener as a named function
 const handleKeyDown = (event) => {
     const char = wordDisplay.querySelectorAll('span'); // Get all characters
+    if (event.key != "Backspace" && lastHighCharIndex === charIndex) {
+        lastHighCharIndex++
+    }//the last high index progression count
+    if (event.key === 'Backspace' && charIndex == 0) {
+        return;//disable backspace when charIndex == 0 
+    }
 
     // Delete on backspace
     if (event.key === 'Backspace' && charIndex > 0) {
