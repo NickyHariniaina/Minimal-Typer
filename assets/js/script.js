@@ -9,7 +9,7 @@ let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 let wordsToType = [];
 
-
+const customCursor = document.querySelector(".custom-cursor");
 const wordPerMinutes = document.getElementById("wpm");
 const acc = document.getElementById("accuracy");
 let wordCount = 10;
@@ -29,8 +29,8 @@ let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
 const getCurrentStats = () => {
     elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
     wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
-    wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(0); // WPM
-    accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+    wpmValue = Math.max(0,(wordsTyped / (elapsedTime / 60)).toFixed(0)); // WPM
+    accuracy = Math.max(0,((charIndex - mistakesCount) / charIndex) * 100) || 0; // Accuracy
     return { wpmValue, accuracy: accuracy.toFixed(2) };
 };
 
@@ -259,7 +259,6 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--secondary-color', '#4ecdc4');
         document.documentElement.style.setProperty('--tertiary-color', '#292f36');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
-        document.documentElement.style.setProperty('--secondary-font-color', 'white')
     })
     sunglow.click(() => {
         theme.isSunglow = true;
