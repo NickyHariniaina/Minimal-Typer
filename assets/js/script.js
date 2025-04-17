@@ -317,25 +317,21 @@ $(document).ready(() => {
     // Mode changer.
     //timerCountdown function
     const chrono = document.getElementById("chrono")
-    let time;
-    const timerCountdown = ()=>{
-        setInterval(()=> {
-            chrono.textContent = time;
+    let time = null;
+    const timerCountdown = setInterval(()=> {
+            chrono.textContent = time + " s";
             time--;
             if (time < 0) {
-                clearInterval(timer);
                 chrono.textContent = "Terminé ! 🎉";
             }
         },1000)
         
-    }
-    
-
     timeFifteen.click(() => {
         timeFifteen.addClass("current-game-mode");
         currentGameMode !== timeFifteen ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeFifteen;
         time = 15;
+       // clearInterval(timerCountdown());
         timerCountdown();
     });
     timeThirty.click(() => {
@@ -343,6 +339,7 @@ $(document).ready(() => {
         currentGameMode !== timeThirty ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeThirty;
         time = 30;
+        //clearInterval(timerCountdown());
         timerCountdown();
     });
     timeOneMinute.click(() => {
@@ -350,6 +347,7 @@ $(document).ready(() => {
         currentGameMode !== timeOneMinute ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeOneMinute; 
         time = 60;
+       // clearInterval(timerCountdown());
         timerCountdown(); 
     });
     timeTwoMinutes.click(() => {
@@ -357,6 +355,7 @@ $(document).ready(() => {
         currentGameMode !== timeTwoMinutes ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeTwoMinutes;
         time = 120;
+       // clearInterval(timerCountdown());
         timerCountdown();
     });
     wordTen.click(() => {
