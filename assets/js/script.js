@@ -316,47 +316,46 @@ $(document).ready(() => {
 
     // Mode changer.
     //timerCountdown function
-    const chrono = document.getElementById("chrono")
+   const chrono = document.getElementById("chrono")
     let time = null;
     const timerCountdown = setInterval(()=> {
-            chrono.textContent = time + " s";
-            time--;
-            if (time < 0) {
-                chrono.textContent = "Terminé ! 🎉";
+            if (charIndex > 0){
+                chrono.textContent = time + " s";
+                time--;
             }
-        },1000)
+            if (time == 0) {
+                chrono.textContent = "Terminé ! 🎉";
+                clearInterval(timerCountdown);
+            }
+        },1000);
         
     timeFifteen.click(() => {
         timeFifteen.addClass("current-game-mode");
         currentGameMode !== timeFifteen ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeFifteen;
         time = 15;
-       // clearInterval(timerCountdown());
-        timerCountdown();
+        
     });
     timeThirty.click(() => {
         timeThirty.addClass("current-game-mode")
         currentGameMode !== timeThirty ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeThirty;
         time = 30;
-        //clearInterval(timerCountdown());
-        timerCountdown();
+        
     });
     timeOneMinute.click(() => {
         timeOneMinute.addClass("current-game-mode");
         currentGameMode !== timeOneMinute ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeOneMinute; 
         time = 60;
-       // clearInterval(timerCountdown());
-        timerCountdown(); 
+         
     });
     timeTwoMinutes.click(() => {
         timeTwoMinutes.addClass("current-game-mode");
         currentGameMode !== timeTwoMinutes ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeTwoMinutes;
         time = 120;
-       // clearInterval(timerCountdown());
-        timerCountdown();
+        
     });
     wordTen.click(() => {
         wordTen.addClass("current-game-mode");
