@@ -23,6 +23,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: none;
 }
 
 body {
@@ -38,6 +39,16 @@ body {
   background: linear-gradient(223deg, var(--tertiary-color) 40%, var(--secondary-color) 80%, var(--primary-color) 100%);
 }
 
+/*the custom cursor*/
+.custom-cursor {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+  transform: translate(-35%, -10%);
+}
 
 /*
   Settings content.
@@ -66,7 +77,6 @@ body {
 
 .settings__quit {
   margin: var(--low);
-  cursor: pointer;
 
   position: absolute;
   top: 0;
@@ -108,7 +118,6 @@ body {
   padding-block: var(--low);
   border-radius: 20px;
   transition: var(--low-transition);
-  cursor: pointer;
 }
 
 .navbar__item-selected {
