@@ -436,9 +436,28 @@ $(document).ready(() => {
         launch();
     })
 
+    $(".option__settings").mouseover(() => {
+        $(".option__settings").addClass("bx-tada");
+    })
+
+    $(".option__settings").mouseleave(() => {
+        $(".option__settings").removeClass("bx-tada");
+    })
+    $(".option__randomize").mouseover(() => {
+        $(".option__randomize").addClass("bx-tada");
+    })
+
+    $(".option__randomize").mouseleave(() => {
+        $(".option__randomize").removeClass("bx-tada");
+    })
+
+    $(".option__randomize").click(() => {
+        restore();
+        launch();
+    })
+
     // Score and stat using chart.js
     const ctx = $("#wpm-stat");
-    console.log("this is the wpmDS" + wpmDS);
     new Chart(ctx, {
         type: 'line',
         data: {

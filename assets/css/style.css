@@ -390,16 +390,26 @@ main {
   overflow: hidden;
 }
 
-option {
-  background-color: rgb(0, 0, 0);
-}
-
 .results {
   display: inherit;
   flex-direction: row;
   gap: 10vw;
   align-items: center;
   margin-top: 3%;
+}
+
+.option {
+  width: 50vw;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.option__settings, .option__randomize {
+  font-size: 5em;
+  position: relative;
+  bottom: 10%;
 }
 
 #wpm,
