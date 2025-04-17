@@ -388,11 +388,12 @@ option {
 .results {
   display: inherit;
   flex-direction: row;
-  gap: 50vw;
+  gap: 25vw;
 }
 
 #wpm,
-#accuracy {
+#accuracy, 
+#chrono{
   width: 10vw;
   font-size: 1.3em;
   text-align: center;

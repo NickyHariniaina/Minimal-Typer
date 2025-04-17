@@ -315,25 +315,49 @@ $(document).ready(() => {
     })
 
     // Mode changer.
+    //timerCountdown function
+    const chrono = document.getElementById("chrono")
+    let time;
+    const timerCountdown = ()=>{
+        setInterval(()=> {
+            chrono.textContent = time;
+            time--;
+            if (time < 0) {
+                clearInterval(timer);
+                chrono.textContent = "Terminé ! 🎉";
+            }
+        },1000)
+        
+    }
+    
+
     timeFifteen.click(() => {
         timeFifteen.addClass("current-game-mode");
         currentGameMode !== timeFifteen ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeFifteen;
+        time = 15;
+        timerCountdown();
     });
     timeThirty.click(() => {
         timeThirty.addClass("current-game-mode")
         currentGameMode !== timeThirty ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeThirty;
+        time = 30;
+        timerCountdown();
     });
     timeOneMinute.click(() => {
         timeOneMinute.addClass("current-game-mode");
         currentGameMode !== timeOneMinute ? currentGameMode.removeClass("current-game-mode") : null;
-        currentGameMode = timeOneMinute;
+        currentGameMode = timeOneMinute; 
+        time = 60;
+        timerCountdown(); 
     });
     timeTwoMinutes.click(() => {
         timeTwoMinutes.addClass("current-game-mode");
         currentGameMode !== timeTwoMinutes ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeTwoMinutes;
+        time = 120;
+        timerCountdown();
     });
     wordTen.click(() => {
         wordTen.addClass("current-game-mode");
