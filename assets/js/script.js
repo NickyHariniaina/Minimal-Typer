@@ -74,6 +74,31 @@ const wpmDS = [];
 
 // Function.
 
+// Score and stat using chart.js
+const ctx = document.querySelector("#wpm-stat");
+const wpmChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [], // Start with empty labels
+        datasets: [
+            {
+                label: "WPM",
+                data: [], // Start with empty data
+                borderColor: "white",
+                tension: 0.3,
+                fill: true,
+            }
+        ]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false, // Allow custom width and height
+    },
+});
+
+// Update the chart dynamically
+let updateChart;
+
 const handleKeyDown = (event) => {
     const char = wordDisplay.querySelectorAll('span'); // Get all characters
 
@@ -111,6 +136,7 @@ const handleKeyDown = (event) => {
         document.querySelector(".typed-word p").innerText = wordCount;
         clearInterval(timer);
         $(".score").show("fast");
+        clearInterval(updateChart);
     }
 };
 const restore = () => {
@@ -120,7 +146,11 @@ const restore = () => {
     acc.innerText = "...";
     wordsToType = [];
     mistakesCount = 0;
+    clearInterval(updateChart);
+    wpmChart.data.datasets[0].data = [];
+    wpmChart.update();
 }
+
 const launch = () => {
 
     // Generate random words for the selected mode
@@ -146,6 +176,16 @@ const launch = () => {
 
     // Add the keydown event listener
     document.addEventListener('keydown', handleKeyDown);
+
+    updateChart = setInterval(() => {
+        const { wpmValue } = getCurrentStats();
+        if (!isNaN(wpmValue)) {
+            wpmDS.push(+wpmValue); // Add the new WPM value to the dataset
+            wpmChart.data.labels.push(wpmDS.length); // Add a new label (e.g., the current second)
+            wpmChart.data.datasets[0].data.push(+wpmValue); // Add the new WPM value to the chart
+            wpmChart.update(); // Update the chart to reflect the new data
+        }
+    }, 1000);
 };
 
 // Interval.
@@ -163,7 +203,7 @@ launch();
 
 // Jquery part.
 $(document).ready(() => {
-    
+
     //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
@@ -234,7 +274,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#7b0d1e');
         document.documentElement.style.setProperty('--primary-font-color', 'white');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/licorice-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/licorice-cursor.png")
     })
     linen.click(() => {
         theme.isLinen = true;
@@ -243,7 +283,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#773344');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'black');
-        customCursor.setAttribute("src","assets/images/cursor-style/licorice-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/licorice-cursor.png")
     })
     ocean.click(() => {
         theme.isOcean = true;
@@ -252,7 +292,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#172a3a');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/raisinBlack-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/raisinBlack-cursor.png")
     })
     crayola.click(() => {
         theme.isCrayola = true;
@@ -261,7 +301,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#e85d75');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/licorice-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/licorice-cursor.png")
     })
     honeydew.click(() => {
         theme.isHoneyDew = true;
@@ -270,7 +310,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#5c164e');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/honeyDew-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/honeyDew-cursor.png")
     })
     gunmetal.click(() => {
         theme.isGunmetal = true;
@@ -279,7 +319,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#292f36');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/raisinBlack-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/raisinBlack-cursor.png")
     })
     sunglow.click(() => {
         theme.isSunglow = true;
@@ -288,7 +328,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#ffaa5a');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'black');
-        customCursor.setAttribute("src","assets/images/cursor-style/sunglow-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/sunglow-cursor.png")
     })
     dukeBlue.click(() => {
         theme.isDukeBlue = true;
@@ -297,7 +337,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#390099');
         document.documentElement.style.setProperty('--primary-font-color', 'white');
         document.documentElement.style.setProperty('--secondary-font-color', 'white')
-        customCursor.setAttribute("src","assets/images/cursor-style/dukeBlue-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/dukeBlue-cursor.png")
     })
     raisinBlack.click(() => {
         theme.isRaisinBlack = true;
@@ -306,7 +346,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#3a2e39');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/raisinBlack-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/raisinBlack-cursor.png")
     })
     lavender.click(() => {
         theme.isLavender = true;
@@ -315,7 +355,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#000000');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/lavender-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/lavender-cursor.png")
     })
     mint.click(() => {
         document.documentElement.style.setProperty('--primary-color', '#6da796');
@@ -323,7 +363,7 @@ $(document).ready(() => {
         document.documentElement.style.setProperty('--tertiary-color', '#001d28');
         document.documentElement.style.setProperty('--primary-font-color', 'black');
         document.documentElement.style.setProperty('--secondary-font-color', 'white');
-        customCursor.setAttribute("src","assets/images/cursor-style/mint-cursor.png")
+        customCursor.setAttribute("src", "assets/images/cursor-style/mint-cursor.png")
     })
 
     // Mode changer.
@@ -454,28 +494,6 @@ $(document).ready(() => {
     $(".option__randomize").click(() => {
         restore();
         launch();
-    })
-
-    // Score and stat using chart.js
-    const ctx = $("#wpm-stat");
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-            datasets: [
-                {
-                    label: "Wpm",
-                    data: wpmDS,
-                    borderColor: "white",
-                    tension: 0.3,
-                    fill: true,
-                }
-            ]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false, // Allow custom width and height
-        },
     })
 
     //Quit score... It is automatically opened if the game has finished.
