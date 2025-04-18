@@ -9,7 +9,6 @@ let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 let wordsToType = [];
 
-const customCursor = document.querySelector(".custom-cursor");
 let wordCount = 10;
 let mode = "easy";
 let currentWord = 0;
@@ -25,11 +24,6 @@ let time = 15;
 let gameMode = "timer";
 
 // DS.
-// add a custom cursor
-document.addEventListener('mousemove', (e) => {
-    customCursor.style.left = `${e.pageX}px`;
-    customCursor.style.top = `${e.pageY}px`;
-});
 
 // Calculate and return WPM & accuracy
 const getCurrentStats = () => {
