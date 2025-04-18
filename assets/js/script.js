@@ -16,6 +16,7 @@ let wordCount = 10;
 const wordDisplay = document.getElementById("word-display");
 let mode = "easy";
 let timer;
+let time = null;
 let charIndex = 0;
 let isTyping = false;
 let mistakesCount = 0;
@@ -107,14 +108,14 @@ const handleKeyDown = (event) => {
             char[i].classList.remove('cursor');
         }
     }
-
     // Check if the test has ended
-    if (charIndex === char.length) {
+    if (charIndex === char.length || time == -1) {
         document.querySelector(".wpm p").innerText = wpmValue;
         document.querySelector(".accuracy p").innerText = accuracy.toFixed(0) + " %";
         document.querySelector(".mistake p").innerText = mistakesCount;
         document.querySelector(".typed-word p").innerText = wordCount;
         clearInterval(timer);
+        document.removeEventListener("keydown", handleKeyDown);
         $(".score").show("fast");
     }
 };
@@ -127,6 +128,7 @@ scoreQuit.addEventListener("click", ()=> {
 })
 
 const launch = () => {
+    
 
     // Generate random words for the selected mode
     const getRandomWord = (mode) => {
@@ -317,13 +319,12 @@ $(document).ready(() => {
     // Mode changer.
     //timerCountdown function
    const chrono = document.getElementById("chrono")
-    let time = null;
     const timerCountdown = setInterval(()=> {
             if (charIndex > 0){
                 chrono.textContent = time + " s";
                 time--;
             }
-            if (time == 0) {
+            if (time < 0) {
                 chrono.textContent = "Terminé ! 🎉";
                 clearInterval(timerCountdown);
             }
@@ -334,29 +335,38 @@ $(document).ready(() => {
         currentGameMode !== timeFifteen ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeFifteen;
         time = 15;
-        
+        chrono.textContent = time + " s";
+        restore();
+        launch();
     });
     timeThirty.click(() => {
         timeThirty.addClass("current-game-mode")
         currentGameMode !== timeThirty ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeThirty;
         time = 30;
-        
+        chrono.textContent = time + " s";
+        restore();
+        launch();
     });
     timeOneMinute.click(() => {
         timeOneMinute.addClass("current-game-mode");
         currentGameMode !== timeOneMinute ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeOneMinute; 
         time = 60;
-         
+        chrono.textContent = time + " s";
+        restore();
+        launch();
     });
     timeTwoMinutes.click(() => {
         timeTwoMinutes.addClass("current-game-mode");
         currentGameMode !== timeTwoMinutes ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeTwoMinutes;
         time = 120;
-        
+        chrono.textContent = time + " s";
+        restore();
+        launch();
     });
+
     wordTen.click(() => {
         wordTen.addClass("current-game-mode");
         currentGameMode !== wordTen ? currentGameMode.removeClass("current-game-mode") : null;
