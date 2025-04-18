@@ -38,16 +38,6 @@ body {
   background: linear-gradient(223deg, var(--tertiary-color) 40%, var(--secondary-color) 80%, var(--primary-color) 100%);
 }
 
-/*the custom cursor*/
-.custom-cursor {
-  width: 28px;
-  height: 28px;
-  object-fit: cover;
-  position: absolute;
-  z-index: 1000;
-  pointer-events: none;
-  transform: translate(-35%, -10%);
-}
 
 /*
   Settings content.
@@ -76,6 +66,7 @@ body {
 
 .settings__quit {
   margin: var(--low);
+  cursor: pointer;
 
   position: absolute;
   top: 0;
@@ -117,6 +108,7 @@ body {
   padding-block: var(--low);
   border-radius: 20px;
   transition: var(--low-transition);
+  cursor: pointer;
 }
 
 .navbar__item-selected {
@@ -389,31 +381,19 @@ main {
   overflow: hidden;
 }
 
+option {
+  background-color: rgb(0, 0, 0);
+}
+
 .results {
   display: inherit;
   flex-direction: row;
-  gap: 10vw;
-  align-items: center;
-  margin-top: 3%;
-}
-
-.option {
-  width: 50vw;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.option__settings, .option__randomize {
-  font-size: 5em;
-  position: relative;
-  bottom: 10%;
+  gap: 25vw;
 }
 
 #wpm,
-#accuracy,
-#status {
+#accuracy, 
+#chrono{
   width: 10vw;
   font-size: 1.3em;
   text-align: center;
@@ -423,8 +403,8 @@ main {
 }
 
 span.correct {
-  transition: all 0.5s;
-  color: var(--tertiary-color);
+  transition: all 0.1s;
+  color: #31c48d;
 }
 
 span.incorrect {

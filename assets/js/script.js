@@ -40,7 +40,6 @@ setInterval(() => {
     acc.textContent = `${accuracy}%`;
 }, 1000);
 
-
 // Change later
 const words = {
     'easy': ["apple", "banana", "grape", "orange", "cherry"],
