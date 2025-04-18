@@ -16,20 +16,20 @@ let timer;
 let charIndex = 0;
 let isTyping = false;
 let mistakesCount = 0;
-let elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
-let wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
-let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
-let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+let elapsedTime = ((Date.now() - startTime)) / 1000; 
+let wordsTyped = (charIndex - mistakesCount) / 5;
+let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2);
+let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0;
 let time = 15;
 let gameMode = "timer";
 
 // DS.
 
 const getCurrentStats = () => {
-    elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
-    wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
-    wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(0); // WPM
-    accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+    elapsedTime = ((Date.now() - startTime)) / 1000;
+    wordsTyped = (charIndex - mistakesCount) / 5;
+    wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(0); 
+    accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0;
     return { wpmValue, accuracy: accuracy.toFixed(2) };
 };
 
@@ -71,11 +71,11 @@ const ctx = document.querySelector("#wpm-stat");
 const wpmChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [], // Start with empty labels
+        labels: [],
         datasets: [
             {
                 label: "WPM",
-                data: [], // Start with empty data
+                data: [],
                 borderColor: "white",
                 tension: 0.3,
                 fill: true,
@@ -84,7 +84,7 @@ const wpmChart = new Chart(ctx, {
     },
     options: {
         responsive: false,
-        maintainAspectRatio: false, // Allow custom width and height
+        maintainAspectRatio: false,
     },
 });
 
@@ -94,7 +94,7 @@ let updateChart;
 const letters = "pkfdcrhaeoijgtnlsquyxbmwvz"
 
 const handleKeyDown = (event) => {
-    const char = wordDisplay.querySelectorAll('span'); // Get all characters
+    const char = wordDisplay.querySelectorAll('span');
 
     // Delete on backspace
     if (event.key === 'Backspace' && charIndex > 0) {
@@ -164,7 +164,7 @@ const launch = () => {
         wordDisplay.innerHTML += `<span>${char}</span>`;
     }
 
-    startTime = Date.now(); // Initialize start time
+    startTime = Date.now();
 
     // Remove any existing keydown event listener
     document.removeEventListener('keydown', handleKeyDown);
