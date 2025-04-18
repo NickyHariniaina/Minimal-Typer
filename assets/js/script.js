@@ -125,6 +125,7 @@ const scoreQuit = document.querySelector(".score__quit")
 scoreQuit.addEventListener("click", ()=> {
     restore();
     launch();
+    timerCountdown();
 })
 
 const launch = () => {
@@ -229,6 +230,7 @@ $(document).ready(() => {
     })
 
     // Change the theme.
+    
     licorice.click(() => {
         theme.isLicorice = true;
         document.documentElement.style.setProperty('--primary-color', '#211103');
@@ -319,7 +321,10 @@ $(document).ready(() => {
     // Mode changer.
     //timerCountdown function
    const chrono = document.getElementById("chrono")
-    const timerCountdown = setInterval(()=> {
+    let timerCountdown; 
+    let startCountDown = ()=>{
+        clearInterval(timerCountdown);
+        timerCountdown = setInterval(()=> {
             if (charIndex > 0){
                 chrono.textContent = time + " s";
                 time--;
@@ -329,6 +334,8 @@ $(document).ready(() => {
                 clearInterval(timerCountdown);
             }
         },1000);
+
+    }
         
     timeFifteen.click(() => {
         timeFifteen.addClass("current-game-mode");
@@ -338,6 +345,7 @@ $(document).ready(() => {
         chrono.textContent = time + " s";
         restore();
         launch();
+        startCountDown()
     });
     timeThirty.click(() => {
         timeThirty.addClass("current-game-mode")
@@ -347,6 +355,7 @@ $(document).ready(() => {
         chrono.textContent = time + " s";
         restore();
         launch();
+        startCountDown()
     });
     timeOneMinute.click(() => {
         timeOneMinute.addClass("current-game-mode");
@@ -356,6 +365,7 @@ $(document).ready(() => {
         chrono.textContent = time + " s";
         restore();
         launch();
+        startCountDown()
     });
     timeTwoMinutes.click(() => {
         timeTwoMinutes.addClass("current-game-mode");
@@ -365,6 +375,7 @@ $(document).ready(() => {
         chrono.textContent = time + " s";
         restore();
         launch();
+        startCountDown()
     });
 
     wordTen.click(() => {
