@@ -25,7 +25,6 @@ let gameMode = "timer";
 
 // DS.
 
-// Calculate and return WPM & accuracy
 const getCurrentStats = () => {
     elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
     wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
@@ -92,6 +91,8 @@ const wpmChart = new Chart(ctx, {
 // Update the chart dynamically
 let updateChart;
 
+const letters = "pkfdcrhaeoijgtnlsquyxbmwvz"
+
 const handleKeyDown = (event) => {
     const char = wordDisplay.querySelectorAll('span'); // Get all characters
 
@@ -101,7 +102,7 @@ const handleKeyDown = (event) => {
         charIndex--;
         char[charIndex].classList.remove('correct', 'incorrect');
         char[charIndex].classList.add('active', 'cursor');
-    } else if ((/[a-zA-Z]/.test(event.key) || event.key === " ") && event.key !== "Escape") {
+    } else if ((letters.includes((event.key).toLowerCase()) || event.key === " ") && event.key !== "Escape") {
         if (char[charIndex].innerText === event.key) {
             char[charIndex].classList.add('correct', 'cursor');
             charIndex++;
@@ -110,6 +111,7 @@ const handleKeyDown = (event) => {
             mistakesCount++;
             charIndex++;
         }
+
         // Move to the next character
         if (charIndex < char.length) {
             char[charIndex].classList.add('active', 'cursor');
@@ -173,15 +175,14 @@ const launch = () => {
     updateChart = setInterval(() => {
         const { wpmValue } = getCurrentStats();
         if (!isNaN(wpmValue)) {
-            wpmDS.push(+wpmValue); // Add the new WPM value to the dataset
-            wpmChart.data.labels.push(wpmDS.length); // Add a new label (e.g., the current second)
-            wpmChart.data.datasets[0].data.push(+wpmValue); // Add the new WPM value to the chart
-            wpmChart.update(); // Update the chart to reflect the new data
+            wpmDS.push(+wpmValue);
+            wpmChart.data.labels.push(wpmDS.length);
+            wpmChart.data.datasets[0].data.push(+wpmValue);
+            wpmChart.update();
         }
     }, 1000);
 };
 
-// Interval.
 setInterval(() => {
     const { wpmValue, accuracy } = getCurrentStats();
     wordPerMinutes.textContent = `${wpmValue} WPM`;
@@ -189,8 +190,6 @@ setInterval(() => {
     let newValue = +wpmValue;
     wpmDS.push(newValue);
 }, 1000);
-
-console.log(wpmDS);
 
 launch();
 

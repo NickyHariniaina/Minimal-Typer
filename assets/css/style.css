@@ -381,8 +381,15 @@ main {
   overflow: hidden;
 }
 
-option {
-  background-color: rgb(0, 0, 0);
+.option i {
+  font-size: 7em;
+}
+
+.option {
+  width: 80vw;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 .results {
@@ -402,9 +409,12 @@ option {
   line-height: 50px;
 }
 
+span {
+  transition: opacity 0.3s;
+}
+
 span.correct {
-  transition: all 0.1s;
-  color: #31c48d;
+  opacity: 0;
 }
 
 span.incorrect {
