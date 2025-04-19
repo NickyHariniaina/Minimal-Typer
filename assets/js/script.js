@@ -3,33 +3,39 @@ const status = document.querySelector("#status");
 const wordPerMinutes = document.getElementById("wpm");
 const acc = document.getElementById("accuracy");
 const wordDisplay = document.getElementById("word-display");
+const chrono = document.getElementById("chrono");
+const scoreQuit = document.querySelector(".score__quit")
 
 // Variables
 let startTime = null, previousEndTime = null;
 let currentWordIndex = 0;
 let wordsToType = [];
-
+let timerCountdown;
 let wordCount = 10;
 let mode = "easy";
 let currentWord = 0;
 let timer;
+let gameMode;
+let time = null;
+let actualyTime = time;
 let charIndex = 0;
 let isTyping = false;
 let mistakesCount = 0;
-let elapsedTime = ((Date.now() - startTime)) / 1000; 
-let wordsTyped = (charIndex - mistakesCount) / 5;
-let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2);
-let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0;
-let time = 15;
-let gameMode = "timer";
+let keydownCount = 0;
+let elapsedTime = ((Date.now() - startTime)) / 1000; // Seconds
+let wordsTyped = (charIndex - mistakesCount) / 5; // 5 chars = 1 word
+let wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(2); // WPM
+let accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0; // Accuracy
+let lastHighCharIndex = 0; //the last high index progression count
+const customCursor = document.querySelector(".custom-cursor");
 
-// DS.
 
-const getCurrentStats = () => {
-    elapsedTime = ((Date.now() - startTime)) / 1000;
-    wordsTyped = (charIndex - mistakesCount) / 5;
-    wpmValue = (wordsTyped / (elapsedTime / 60)).toFixed(0); 
-    accuracy = ((charIndex - mistakesCount) / charIndex) * 100 || 0;
+// Calculate and return WPM & accuracy
+const  getCurrentStats = () => {
+    elapsedTime = startTime ? ((Date.now() - startTime)) / 1000 : 0;
+    wordsTyped = Math.max(0, (charIndex - mistakesCount) / 5); // 5 chars = 1 word
+    wpmValue = startTime ? Math.max(0,(wordsTyped / (elapsedTime / 60)).toFixed(0)) : 0; // WPM
+    accuracy = startTime ? Math.max(0,((lastHighCharIndex - mistakesCount) / lastHighCharIndex) * 100) : 100; // Accuracy
     return { wpmValue, accuracy: accuracy.toFixed(2) };
 };
 
@@ -45,8 +51,6 @@ const words = {
     'medium': ["keyboard", "monitor", "printer", "charger", "battery"],
     'hard': ["synchronize", "complicated", "development", "extravagant", "misconception"]
 };
-
-
 
 const theme = {
     isLicorice: false,
@@ -94,7 +98,19 @@ let updateChart;
 const letters = "pkfdcrhaeoijgtnlsquyxbmwvz"
 
 const handleKeyDown = (event) => {
-    const char = wordDisplay.querySelectorAll('span');
+    const char = wordDisplay.querySelectorAll('span'); // Get all characters
+   
+    if (!isTyping && (event.key.length === 1 || event.key === " ")) {
+        isTyping = true;
+        startTime = Date.now();
+        if (time !== null) startCountDown();
+    }
+    if (event.key != "Backspace" && lastHighCharIndex === charIndex) {
+        lastHighCharIndex++;
+    }
+    if (event.key === 'Backspace' && charIndex == 0) {
+        return;//disable backspace when charIndex == 0 
+    }
 
     // Delete on backspace
     if (event.key === 'Backspace' && charIndex > 0) {
@@ -122,33 +138,42 @@ const handleKeyDown = (event) => {
             char[i].classList.remove('cursor');
         }
     }
-
+    
     // Check if the test has ended
-    if (charIndex === char.length) {
+    if (charIndex === char.length || time === 0) {
         document.querySelector(".wpm p").innerText = wpmValue;
         document.querySelector(".accuracy p").innerText = accuracy.toFixed(0) + " %";
         document.querySelector(".mistake p").innerText = mistakesCount;
         document.querySelector(".typed-word p").innerText = wordCount;
         clearInterval(timer);
+        document.removeEventListener("keydown", handleKeyDown);
         $(".score").show("fast");
         clearInterval(updateChart);
     }
 };
+
 const restore = () => {
+    isTyping = false;
+    clearInterval(timerCountdown);
     wordDisplay.innerText = "";
     charIndex = 0;
+    mistakesCount = 0;
+    lastHighCharIndex = 0;
+    startTime = null;
     wordPerMinutes.innerText = "...";
     acc.innerText = "...";
     wordsToType = [];
-    mistakesCount = 0;
+    if ((time || actualyTime )!== null) {
+        chrono.textContent = time + " s";
+    }else chrono.textContent = "...";
     clearInterval(updateChart);
     wpmChart.data.datasets[0].data = [];
     wpmChart.update();
 }
-
+ 
 const launch = () => {
-
-    // Generate random words for the selected mode
+    restore();
+// Generate random words for the selected mode
     const getRandomWord = (mode) => {
         const wordList = words[mode];
         return wordList[Math.floor(Math.random() * wordList.length)];
@@ -163,13 +188,10 @@ const launch = () => {
     for (const char of joinedWord) {
         wordDisplay.innerHTML += `<span>${char}</span>`;
     }
-
-    startTime = Date.now();
-
+    
     // Remove any existing keydown event listener
+        // &&Add the keydown event listener
     document.removeEventListener('keydown', handleKeyDown);
-
-    // Add the keydown event listener
     document.addEventListener('keydown', handleKeyDown);
 
     updateChart = setInterval(() => {
@@ -191,11 +213,22 @@ setInterval(() => {
     wpmDS.push(newValue);
 }, 1000);
 
-launch();
+const startCountDown = ()=>{
+    clearInterval(timerCountdown);
+    timerCountdown = setInterval(()=> {
+        if (time > 0){
+            time--;
+            chrono.textContent = time + " s";
+        }else{
+            chrono.textContent = "Terminé ! 🎉";
+            clearInterval(timerCountdown);
+        }
+    },1000);
+}
 
 // Jquery part.
 $(document).ready(() => {
-
+    launch();
     //Document Selector
     const modeSettingsButton = $(".navbar__item-mode");
     const appearanceSettingsButton = $(".navbar__item-appearance");
@@ -239,8 +272,8 @@ $(document).ready(() => {
     // Close settings
     $(".settings__quit").click(() => {
         $(".settings").hide(300);
-    })
-
+    }) /*$(".settings").hide();$(".score").hide();*/
+ 
     // Browse between settings page:
     // Go to the mode settings.
     $(".navbar__item-mode").click(() => {
@@ -248,7 +281,7 @@ $(document).ready(() => {
         appearanceSettingsButton.removeClass("navbar__item-selected");
         appearanceSettings.hide(500);
         modeSettings.show(500);
-    })
+    });
 
     // Go to the appearance settings.
     $(".navbar__item-appearance").click(() => {
@@ -258,7 +291,7 @@ $(document).ready(() => {
         appearanceSettings.show(500);
     })
 
-    // Change the theme.
+    // theme handlers.
     licorice.click(() => {
         theme.isLicorice = true;
         document.documentElement.style.setProperty('--primary-color', '#211103');
@@ -358,15 +391,14 @@ $(document).ready(() => {
         customCursor.setAttribute("src", "assets/images/cursor-style/mint-cursor.png")
     })
 
-    // Mode changer.
+    // Mode handlers 
     timeFifteen.click(() => {
         timeFifteen.addClass("current-game-mode");
         currentGameMode !== timeFifteen ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeFifteen;
         gameMode = "timer";
-        restore();
+        time = 15;
         launch();
-        startTimer(15); // Start the timer for 15 seconds
     });
 
     timeThirty.click(() => {
@@ -374,19 +406,17 @@ $(document).ready(() => {
         currentGameMode !== timeThirty ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeThirty;
         gameMode = "timer";
-        restore();
+        time = 30;
         launch();
-        startTimer(30); // Start the timer for 30 seconds
     });
 
     timeOneMinute.click(() => {
         timeOneMinute.addClass("current-game-mode");
         currentGameMode !== timeOneMinute ? currentGameMode.removeClass("current-game-mode") : null;
-        currentGameMode = timeOneMinute;
+        currentGameMode = timeOneMinute; 
         gameMode = "timer";
-        restore();
+        time = 60;
         launch();
-        startTimer(60); // Start the timer for 60 seconds
     });
 
     timeTwoMinutes.click(() => {
@@ -394,46 +424,46 @@ $(document).ready(() => {
         currentGameMode !== timeTwoMinutes ? currentGameMode.removeClass("current-game-mode") : null;
         currentGameMode = timeTwoMinutes;
         gameMode = "timer";
-        restore();
+        time = 120;
         launch();
-        startTimer(120); // Start the timer for 120 seconds
     });
+
     wordTen.click(() => {
-        wordTen.addClass("current-game-mode");
         currentGameMode !== wordTen ? currentGameMode.removeClass("current-game-mode") : null;
+        wordTen.addClass("current-game-mode");
         currentGameMode = wordTen;
         wordCount = 10;
-        restore();
+        time = null;
         launch();
         gameMode = "counter";
         status.innerText = `0 / ${wordCount}`
     });
     wordTwentyFive.click(() => {
-        wordTwentyFive.addClass("current-game-mode");
         currentGameMode !== wordTwentyFive ? currentGameMode.removeClass("current-game-mode") : null;
+        wordTwentyFive.addClass("current-game-mode");
         currentGameMode = wordTwentyFive;
         wordCount = 25;
-        restore();
+        time = null;
         launch();
         gameMode = "counter";
         status.innerText = `0 / ${wordCount}`
     });
     wordFifty.click(() => {
-        wordFifty.addClass("current-game-mode");
         currentGameMode !== wordFifty ? currentGameMode.removeClass("current-game-mode") : null;
+        wordFifty.addClass("current-game-mode");
         currentGameMode = wordFifty;
         wordCount = 50;
-        restore();
+        time = null;
         launch();
         gameMode = "counter";
         status.innerText = `0 / ${wordCount}`
     });
     wordHundred.click(() => {
-        wordHundred.addClass("current-game-mode");
         currentGameMode !== wordHundred ? currentGameMode.removeClass("current-game-mode") : null;
+        wordHundred.addClass("current-game-mode");
         currentGameMode = wordHundred;
         wordCount = 100;
-        restore();
+        time = null;
         launch();
         gameMode = "counter";
         status.innerText = `0 / ${wordCount}`
@@ -441,34 +471,31 @@ $(document).ready(() => {
 
     // level changer.
     easy.click(() => {
-        easy.addClass("current-game-mode");
         currentLevel !== easy ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = easy;
+        easy.addClass("current-game-mode");
         mode = "easy";
         wordsToType = [];
-        restore();
         launch();
     });
     medium.click(() => {
-        medium.addClass("current-game-mode");
         currentLevel !== medium ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = medium;
+        medium.addClass("current-game-mode");
         mode = "medium";
         wordsToType = [];
-        restore();
         launch();
     })
     hard.click(() => {
-        hard.addClass("current-game-mode");
         currentLevel !== hard ? currentLevel.removeClass("current-game-mode") : null;
         currentLevel = hard;
+        hard.addClass("current-game-mode");
         mode = "hard";
         wordsToType = [];
-        restore();
         launch();
     })
 
-    $(".option__settings").mouseover(() => {
+    $(".option__settings").mouseover(() => {        
         $(".option__settings").addClass("bx-tada");
     })
 
@@ -484,7 +511,6 @@ $(document).ready(() => {
     })
 
     $(".option__randomize").click(() => {
-        restore();
         launch();
     })
 
@@ -492,6 +518,8 @@ $(document).ready(() => {
 
     $(".score__quit").click(() => {
         $(".score").hide("fast");
+        launch();
+        timerCountdown();
     })
 
     // Shortcuts
