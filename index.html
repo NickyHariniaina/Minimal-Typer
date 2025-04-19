@@ -51,7 +51,6 @@
         </div>
     </div>
     <div class="settings">
-        <!-- Quit button to change later -->
         <div class="settings__quit" aria-selected="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
         </div>
@@ -59,7 +58,6 @@
             <ul class="navbar__container">
                 <li class="navbar__item navbar__item-selected navbar__item-mode">Mode</li>
                 <li class="navbar__item navbar__item-appearance">Appearance</li>
-                <!-- We should add more settings here later -->
             </ul>
         </nav>
         <section class="settings__content">
@@ -75,17 +73,15 @@
                 <div class="mode__behavior">
                     <h2>Choose your game mode</h2>
                     <div class="behavior__container">
-                        <div class="behavior__time">
-                            <button class="time__fifteen current-game-mode">15 seconds</button>
-                            <button class="time__thirty">30 seconds</button>
-                            <button class="time__one-minute">60 seconds</button>
-                            <button class="time__two-minutes">120 seconds</button>
-                        </div>
                         <div class="behavior__words">
+                            <button class="words__five">5 words</button>
                             <button class="words__ten">10 words</button>
+                            <button class="words__fifteen">15 words</button>
+                            <button class="words__twenty">20 words</button>
                             <button class="words__twenty-five">25 words</button>
-                            <button class="words__fifty">50 words</button>
-                            <button class="words__hundred">100 words</button>
+                            <button class="words__thirty">30 words</button>
+                            <button class="words__thirty-five">35 words</button>
+                            <button class="words__fourty">40 words</button>
                         </div>
                     </div>
                 </div>
@@ -108,10 +104,13 @@
             </div>
         </section>
     </div>
+    <div class="shortcuts">
+        <p>You can read the readme.md to know more about the shortcuts...</p>
+    </div>
+    <div class="loading hide"><p>Please wait...</p></div>
     <script src="./assets/js/jquery-3.7.1.min.js"></script>
     <script src="./assets/js/script.js" type="module"></script>
     <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <!-- Import of Jquery, should replace by CDN later. -->
 </body>
 </html>

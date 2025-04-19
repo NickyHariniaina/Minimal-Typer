@@ -126,6 +126,10 @@ body {
   scale: 0.9;
 }
 
+.hide {
+  display: none !important;
+}
+
 .appearance {
   display: none;
   flex-direction: column;
@@ -134,6 +138,12 @@ body {
   border-radius: 20px;
   margin: auto;
   background-color: #6da7963b;
+}
+
+.shortcuts {
+  position: absolute;
+  bottom: 0%;
+  color: var(--primary-font-color);
 }
 
 /* The design should be improved later */
@@ -225,14 +235,13 @@ body {
   gap: 2%;
 }
 
-.behavior__time,
 .behavior__words {
   display: flex;
   gap: var(--low);
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
-.behavior__time button,
 .behavior__words button {
   background-color: var(--tertiary-color);
   color: var(--secondary-font-color);
@@ -438,5 +447,35 @@ span.incorrect {
   }
   100% {
     border-color: #31c48d;
+  }
+}
+
+.loading {
+  position: absolute;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading p{
+  font-size: 2em;
+  font-weight: bold;
+  animation-name: loading;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
