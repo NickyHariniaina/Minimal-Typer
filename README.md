@@ -32,21 +32,9 @@ Open it using the live server extension on __VSCode__.
 
 Before playing the game, you'll be redirected to the *settings page*, you'll choose your game mode.
 
-#### Game mode.
+#### ColorScheme.
 
-Minimal typer only support __8__ game mode.
-+ 15 seconds tests.
-+ 30 seconds tests.
-+ 60 seconds tests.
-+ 120 seconds tests.
-+ 10 words tests.
-+ 25 words tests.
-+ 50 words tests.
-+ 100 words tests.
-
-#### Color Scheme.
-
-After that you can choose a __color scheme__ in the *appearance page*, the default is the **duke blue** theme.
+After that you can choose a __color scheme__ in the *appearance page*.
 
 *We recommend you to use the Linen color scheme for better visual experience*.
 
