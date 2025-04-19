@@ -63,4 +63,6 @@ You'll have a board  where you'll see all the text.
 At the end of the test, the stat will be shown in full screen. (I think that there is no need to add a documentation for it because it is very clear in the game.).
 
 ## Shortcuts.
-+ `<Esc>` : quit the settings page
++ `<Esc>` : quit the settings page.
++ `Enter`: Start a new game.
++ `Backspace`: quit the score page.
